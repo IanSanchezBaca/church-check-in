@@ -7,7 +7,7 @@ export const metadata = { // This is the default function
   description: 'A Next.js site using the App Router',
 };
 
-export default function RootLayout({ children }) {
+export default function TempLayout({ children }) {
   return (
     <html lang="en">
       <body>
