@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div>
     <h>root page</h> <br></br>
-    <link href="/temp">link to tempPage</link>
+    {/* <link href="/temp">link to tempPage</link> */}
     </div>
   
 );}
