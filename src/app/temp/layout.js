@@ -1,5 +1,5 @@
 // Layout for temp
-
+import "./tempCSS.css";
 // app/layout.js
 
 export const metadata = { // This is the default function
