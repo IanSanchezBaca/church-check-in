@@ -1,9 +1,13 @@
-// page for temp
-import Link from "next/link";
+/* page for temp 
+ * This is the temp page and i will be doing all my tests on this
+*/
+import Link from "next/link"; // use this to link 
+import "./tempCSS.css"
 
 
 export default function Temp() {return (
-  <div>
+  // this is already surounded by a body tag
+  <div class="flex flex-col items-center">
     <h>tempPage</h><br></br>
 
     <Link href="/">link to root</Link>
