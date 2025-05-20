@@ -27,11 +27,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
       
-        <nav class="bg-gray-800">
+        <nav class="bg-gray-500">
           this is a nav tag?
         </nav>
 
         <main>{children}</main>
+
+        <footer class="bg-sky-300">IDK WHAT IM DOING</footer>
 
       </body>
     </html>
