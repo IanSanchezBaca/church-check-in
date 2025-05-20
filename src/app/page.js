@@ -1,5 +1,6 @@
-// root page
-// import Image from "next/image";
+/* root page
+ * import Image from "next/image";
+*/
 import Link from "next/link"; // use this as using the regular link tag breaks
 
 

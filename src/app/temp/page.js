@@ -7,7 +7,7 @@ import "./tempCSS.css"
 
 export default function Temp() {return (
   // this is already surounded by a body tag
-  <div class="flex flex-col items-center">
+  <div>
     <h>tempPage</h><br></br>
 
     <Link href="/">link to root</Link>
