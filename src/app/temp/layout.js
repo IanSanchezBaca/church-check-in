@@ -14,8 +14,6 @@ export default function TempLayout({ children }) {
   return (
     <html lang="en">
       <body>
-      
-      <h>Temp Header!</h>
 
       <main>{children}</main>  
               

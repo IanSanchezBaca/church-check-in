@@ -8,8 +8,10 @@ import "./tempCSS.css"
 export default function Temp() {return (
   // this is already surounded by a body tag
   <div>
+    
     <h>tempPage</h><br></br>
 
     <Link href="/">link to root</Link>
+  
   </div>
 );}
