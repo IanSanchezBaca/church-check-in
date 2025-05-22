@@ -25,16 +25,25 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        {/* This is bootstrap */}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></link>
+      </head>
+
       <body>
-      
-        <nav class="bg-gray-500">
-          this is a nav tag?
+
+        {/* this is the navbar and should be on all child pages */}
+        <nav class="navbar bg-dark text-white">
+          <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">
+              Navbar
+            </span>
+          </div>
         </nav>
 
         <main>{children}</main>
 
-        <footer class="bg-sky-300">IDK WHAT IM DOING</footer>
-
       </body>
+
     </html>
 );}
