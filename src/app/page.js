@@ -9,12 +9,10 @@ export default function Home() {
   return (
     <div>
     
-    <h>
-      Root Page
-    </h> 
-    <br></br>
-    
-    <Link href="/temp">link to tempPage</Link>
+      <h1>Root Page</h1> 
+      <br></br>
+
+      <Link href="/temp">link to tempPage</Link>
     
     </div>
 );}

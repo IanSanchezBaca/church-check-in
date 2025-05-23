@@ -1,5 +1,6 @@
 /* root layout */
 import "./globals.css"; 
+// import Link from "next/link";
 
 // import { Geist, Geist_Mono } from "next/font/google";
 // im not going to use this as this affects children
@@ -27,15 +28,15 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         {/* This is bootstrap */}
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></link>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossOrigin="anonymous"></link>
       </head>
 
       <body>
-
+        
         {/* this is the navbar and should be on all child pages */}
-        <nav class="navbar bg-dark text-white">
-          <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">
+        <nav className="navbar bg-dark text-white">
+          <div className="container-fluid">
+            <span className="navbar-brand mb-0 h1">
               Navbar
             </span>
           </div>
