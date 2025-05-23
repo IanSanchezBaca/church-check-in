@@ -1,4 +1,27 @@
 /* This will be use for the global stuff */
 /* @import "tailwindcss"; */
 
+/* . are for classes
+ * # are for id
+ * no "mark" is for modifying tags
+**/
 
+/* .myPadding{
+    padding-top: 10px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: 24px;
+} */
+
+main {
+    padding-top: 10px; 
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: 24px;
+}
+
+
+/*  Padding Best Practices
+ * Use spacing in multiples of 4 or 8 (e.g., 8px, 16px, 24px, 32px) 
+ *  — this creates a visually consistent rhythm.
+*/
