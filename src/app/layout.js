@@ -47,7 +47,7 @@ export default function RootLayout({ children }) {
                   <a className="nav-link" href="temp">temp</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="checkin">checkin</a>
+                  <a className="nav-link" href="checkIn">checkin</a>
                 </li>
               </ul>
             </div>
