@@ -1,6 +1,6 @@
 /* root layout */
 import "./globals.css"; 
-// import Link from "next/link";
+import Link from "next/link";
 
 // import { Geist, Geist_Mono } from "next/font/google";
 // im not going to use this as this affects children
@@ -33,16 +33,30 @@ export default function RootLayout({ children }) {
 
       <body>
         
-        {/* this is the navbar and should be on all child pages */}
-        <nav className="navbar bg-dark text-white">
+        {/* this is the navbar and should be on all child pages 
+          * Will only use this for testing */}
+        <nav className="navbar navbar-expand-lg bg-dark">
           <div className="container-fluid">
-            <span className="navbar-brand mb-0 h1">
-              Navbar
-            </span>
+            <Link className="navbar-brand" href="/">Navbar</Link>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="navbarNav">
+              <ul className="navbar-nav">                
+                <li className="nav-item">
+                  <a className="nav-link" href="temp">temp</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="checkin">checkin</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </nav>
 
-        <main>{children}</main>
+        <main>
+          {children}
+        </main>
 
       </body>
 

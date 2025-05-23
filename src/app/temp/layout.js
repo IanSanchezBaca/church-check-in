@@ -13,7 +13,9 @@ export const metadata = { // This is the default function
 export default function TempLayout({ children }) {
   return (
     <div>
-    {children}
+
+      {children}
+    
     </div>
     
 );}

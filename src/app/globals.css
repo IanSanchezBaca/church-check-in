@@ -6,19 +6,13 @@
  * no "mark" is for modifying tags
 **/
 
-/* .myPadding{
-    padding-top: 10px;
-    padding-left: 24px;
-    padding-right: 24px;
-    padding-bottom: 24px;
-} */
-
-main {
-    padding-top: 10px; 
-    padding-left: 24px;
-    padding-right: 24px;
-    padding-bottom: 24px;
+.myPadding{
+    padding: 24px;
 }
+
+/* main {
+    padding: 24px;
+} */
 
 
 /*  Padding Best Practices

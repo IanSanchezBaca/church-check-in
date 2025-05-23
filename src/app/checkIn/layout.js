@@ -1,4 +1,5 @@
 /* finally starting the checkin page after learning how this all works */
+import "./chicken.css";
 
 export const metadata = {
     title: 'Check in',
@@ -7,9 +8,9 @@ export const metadata = {
 
 export default function chickenLayout({children}){
     return (
-        <div>
-
+        <div className="myPadding chickenLayout">
             {children}
-
         </div>
 );}
+
+// background-color: rgb(251, 255, 178);
