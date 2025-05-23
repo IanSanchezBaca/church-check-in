@@ -5,6 +5,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 First, run the development server:
 
 ```bash
+# this is the best since i dont have to run build then start
 npm run dev
 # or
 yarn dev
