@@ -1,5 +1,14 @@
-.chickenLayout{
-    background-color: rgb(251,255,178);
+.chickenLayout {
+    background-color: rgb(251, 255, 178);
     /* min-height: auto; */
     min-height: 100vh;
+}
+
+
+.myCenter {
+    display: flex;
+    justify-content: center;
+    /* horizontal center */
+    /* height: 100vh; */
+    /* fill viewport height */
 }
