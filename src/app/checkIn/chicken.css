@@ -17,7 +17,7 @@
     /* center horizontally */
     align-items: center;
     /* center vertically */
-    border: 1px solid #ccc;
+    border: 5px solid black;
 }
 
 .myCenterX {
