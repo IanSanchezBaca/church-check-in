@@ -1,6 +1,6 @@
-/* main page for checkIn 
- * Im making this page becasue i might also implament signing in for the adults 
-*/
+/********************************************
+ * checkin/page.js 
+*********************************************/
 import "./chicken.css"
 
 export default function chicken() {
