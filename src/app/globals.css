@@ -6,7 +6,11 @@
  * no "mark" is for modifying tags
 **/
 
-.myPadding{
+.smallPadding {
+    padding: 8px
+}
+
+.myPadding {
     padding: 24px;
 }
 
