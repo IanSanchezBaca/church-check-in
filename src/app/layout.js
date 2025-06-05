@@ -1,4 +1,6 @@
-/* root layout */
+/********************************************
+ * root/layout.js 
+*********************************************/
 import "./globals.css";
 import Link from "next/link";
 
