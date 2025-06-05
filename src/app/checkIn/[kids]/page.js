@@ -1,13 +1,29 @@
-/* This will probably hold all the stuff to do the stuff for the kids */
+/********************************************
+ * kids/page.js 
+*********************************************/
+'use client';
+
+import Link from "next/link";
 
 export default function chick() {
     return (
         <div>
-            <h1 className="myCenter">Kid Check In</h1>
-            <div className="smallPadding">
-                <h2>Parent</h2>
+            <div className="myCenterX">
+                <h1>Kids Check In</h1>
             </div>
-        </div>
+            <div className="row">
+                <Link href="/checkIn/kids/signin" className="box">
+                    <div>
+                        <h1>Sign In</h1>
+                    </div>
+                </Link>
+                <Link href="/checkIn/kids/reg" className="box">
+                    <div>
+                        <h1>Register</h1>
+                    </div>
+                </Link>
+            </div>
+        </div >
     );
 }
 
