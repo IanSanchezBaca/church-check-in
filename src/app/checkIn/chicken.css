@@ -68,6 +68,9 @@ input[type=submit]:hover {
 /* This is probably when a phone opens the webpage */
 @media only screen and (max-width: 500px) {
     .row {
+        /* this makes it so that its sortof in the middle of the screen*/
+        margin-top: 5rem;
+
         display: flex;
         gap: 5px;
         flex-direction: column;
@@ -79,3 +82,14 @@ input[type=submit]:hover {
 
 
 }
+
+
+/* some other pastel colors to keep just in case
+ * FFC2C2 red 
+ * FFD9C0 orange
+ * FFF3BD yellow
+ * FFFAE6 white-ish?
+ * D9FCD9 green
+ * B4F2F1 blue
+ * E2C5E5 purple
+ */
