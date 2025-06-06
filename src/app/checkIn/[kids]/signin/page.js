@@ -8,11 +8,7 @@ export default function signin() {
             <div className="myCenterX">
                 <h1>Kid Sign In</h1>
             </div>
-            <div className="smallPadding">
-                <h2>Parent</h2>
-                <label htmlFor="fname">First Name</label>
-                <input type="text"></input>
-            </div>
+            <div className="myCenterX"><h2>Work in progress</h2></div>
         </div>
     );
 }
