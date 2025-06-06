@@ -5,7 +5,7 @@ import "./chicken.css";
 
 export const metadata = {
     title: 'Check in',
-    description: 'I actually don\'t know what im doing'
+    description: 'This is the check in page.'
 };
 
 export default function chickenLayout({ children }) {
