@@ -142,13 +142,21 @@ export default function CheckinPage() {
                 React.createElement('button', {
                     type: 'button',
                     key: 'add-kid',
-                    onClick: addAnotherKid
+                    onClick: addAnotherKid,
+                    className: 'kidAddBtn',
                 }, 'Add Another Kid'),
 
-                React.createElement('button', {
-                    type: 'submit',
-                    key: 'submit'
-                }, 'Submit')
+                React.createElement('div', {
+                    key: `submit-button-container`,
+                    className: 'submitButtonContainer'
+                },
+                    [
+                        React.createElement('button', {
+                            type: 'submit',
+                            key: 'submit',
+                            className: 'submitButton'
+                        }, 'Submit')
+                    ])
             ]
         )
     );
