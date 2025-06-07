@@ -1,5 +1,5 @@
 /********************************************
- * register/page.js 
+ * kids/register/page.js 
 *********************************************/
 //// This tells Next.js that the component runs in the browser and can use state, events, etc.
 'use client';
