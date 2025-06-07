@@ -1,0 +1,48 @@
+h2 {
+    padding-top: 1rem;
+}
+
+form {
+    align-items: center;
+    text-align: center;
+}
+
+input {
+    background-color: #FFFAE6;
+}
+
+button {
+    background-color: #B4F2F1;
+    color: black;
+}
+
+.kidDiv {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.delete-button-container {
+    margin-top: 1rem;
+    align-items: center;
+    text-align: center;
+}
+
+.delete-button {
+    background-color: crimson;
+    color: white;
+}
+
+
+
+
+
+@media only screen and (max-width: 590px) {
+    h2 {
+        font-size: 50px;
+    }
+
+    p {
+        font-size: xx-large;
+    }
+
+}
