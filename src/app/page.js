@@ -47,8 +47,8 @@ export default function Home() {
   return (
     <div className="myPadding">
 
-      <h1>Root Page</h1>
+      <h1 style={{ backgroundColor: "aqua", textAlign: "center" }}>Root Page</h1>
 
-    </div>
+    </div >
   );
 }
