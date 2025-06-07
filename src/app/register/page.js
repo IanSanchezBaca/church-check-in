@@ -3,6 +3,7 @@
 *********************************************/
 'use client';
 
+import './mainReg.css'
 import React, { useState } from 'react'; /// This is used to create react function
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { collection, addDoc } from 'firebase/firestore';
@@ -13,6 +14,7 @@ import { useRouter } from 'next/navigation';
 
 
 export default function mainRegister() {
+    const [showPassword, setShowPassword] = useState(false); // used for the button to show password
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
@@ -53,15 +55,71 @@ export default function mainRegister() {
         }
     };
 
+    /* The html stuff */
+    return React.createElement('div', { key: 'regDiv' }, [
+        React.createElement('h2', { key: 'mainRegHeading' }, 'Register'),
 
-    // fix this 
-    return (
-        <div>
+        React.createElement('form', { onSubmit: handleSubmit, key: 'formKey' }, [
 
-            <h1 style={{ backgroundColor: "aqua", textAlign: "center" }}>register</h1>
+            /* Username */
+            React.createElement('div', { key: 'usernameWrapper' }, [
+                React.createElement('input', {
+                    key: 'username',
+                    type: 'text',
+                    placeholder: 'Username',
+                    value: name,
+                    onChange: (e) => setName(e.target.value)
+                })
+            ]),
 
-        </div >
-    );
+            /* Email */
+            React.createElement('div', { key: 'emailWrapper' }, [
+                React.createElement('input', {
+                    key: 'email',
+                    type: 'email',
+                    placeholder: 'Email',
+                    value: email,
+                    onChange: (e) => setEmail(e.target.value),
+                })
+            ]),
+
+            /* Password and show password*/
+            React.createElement('div', { key: 'passwordWrapper' }, [
+                React.createElement('input', {
+                    className: 'pswInput',
+                    key: 'password',
+                    type: showPassword ? 'text' : 'password',
+                    placeholder: 'Password',
+                    value: password,
+                    onChange: (e) => setPassword(e.target.value)
+                }),
+
+                /* Show password button */
+                React.createElement('label', { key: 'showpass-label' }, [
+                    React.createElement('input', {
+                        className: 'checkBox',
+                        key: 'showPswCheck',
+                        type: 'checkbox',
+                        checked: showPassword,
+                        onChange: () => setShowPassword(!showPassword),
+                    }),
+                    'Show Password'
+                ]),
+
+            ]),
+
+            /* submit button */
+            React.createElement('div', { key: 'submitBtnWrapper' }, [
+                React.createElement('button', {
+                    key: 'submit',
+                    type: 'submit',
+                    className: 'SubmitButton'
+                }, 'Register'),
+            ])
+
+        ])
+    ]);
+
 
 
 } // export default function mainRegister
