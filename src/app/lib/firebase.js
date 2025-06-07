@@ -7,6 +7,8 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
+
+// This is public as the documentation says this should be ok
 const firebaseConfig = {
 
     apiKey: "AIzaSyBz7AtIbpExBf_e7n-_BR52eajBeZsd6ZM",
