@@ -8,11 +8,8 @@ import "./reg.css"
 import React, { useState } from 'react';
 import { db } from '@/app/lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
+import { getNextKidId } from "@/app/lib/firebaseUtils";
 
-
-function generateKidId() {
-    return Math.floor(10000 + Math.random() * 90000).toString(); // 5-digit ID
-}
 
 
 
@@ -75,10 +72,13 @@ export default function CheckinPage() {
         }
 
         // Add kid IDs
-        const kidsWithId = kids.map(kid => ({
-            ...kid,
-            id: generateKidId()
-        }));
+        const kidsWithId = await Promise.all(
+            kids.map(async (kid) => ({
+                ...kid,
+                id: await getNextKidId()
+            }
+            ))
+        );
 
         /*Saves the parent and all kids together into Firestore as one document*/
         try {
