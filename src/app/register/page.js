@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation';
 
 
 
-export default function mainRegister() {
+export default function MainRegister() {
     const [showPassword, setShowPassword] = useState(false); // used for the button to show password
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
