@@ -4,6 +4,7 @@
 //// This tells Next.js that the component runs in the browser and can use state, events, etc.
 'use client';
 
+import "./reg.css"
 import React, { useState } from 'react';
 import { db } from '@/app/lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
@@ -100,7 +101,6 @@ export default function CheckinPage() {
 
     return React.createElement('form', { onSubmit: handleSubmit },
         [React.createElement('h2', { key: 'heading-parent' }, 'Parent Info')].concat(
-
             ['firstName', 'lastName', 'phone', 'emergency'].map((field) =>
                 React.createElement('input', {
                     key: `parent-${field}`,
@@ -112,7 +112,7 @@ export default function CheckinPage() {
 
             [React.createElement('h2', { key: 'heading-kids' }, 'Kid(s) Info')],
             kids.map((kid, index) =>
-                React.createElement('div', { key: `kid-${index}` }, [
+                React.createElement('div', { key: `kid-${index}`, className: 'kidDiv' }, [
                     React.createElement('p', { key: `label-${index}` }, `Kid #${index + 1}`),
                     ...['firstName', 'lastName', 'birthdate', 'allergies'].map(field =>
                         React.createElement('input', {
@@ -121,7 +121,20 @@ export default function CheckinPage() {
                             value: kid[field],
                             onChange: e => handleKidChange(index, field, e.target.value)
                         })
-                    )
+                    ),
+                    index > 0 && /* adds a delete button for kid 2 and greater */
+                    React.createElement('div', { className: 'delete-button-container', key: `delete-wrap-${index}` }, [
+                        React.createElement('button', {
+                            key: `delete-${index}`,
+                            type: 'button',
+                            onClick: () => {
+                                const updatedKids = [...kids];
+                                updatedKids.splice(index, 1);
+                                setKids(updatedKids);
+                            },
+                            className: 'delete-button'
+                        }, 'Delete Kid')
+                    ])
                 ])
             ),
 
@@ -131,6 +144,7 @@ export default function CheckinPage() {
                     key: 'add-kid',
                     onClick: addAnotherKid
                 }, 'Add Another Kid'),
+
                 React.createElement('button', {
                     type: 'submit',
                     key: 'submit'
@@ -138,7 +152,6 @@ export default function CheckinPage() {
             ]
         )
     );
-
 } // checkinpage
 
 
