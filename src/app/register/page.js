@@ -1,12 +1,14 @@
 /********************************************
  * register/page.js 
 *********************************************/
-'use client';
+'use client'; // This has to be printed before everything else
 
 import './mainReg.css'
+
+
 import React, { useState } from 'react'; /// This is used to create react function
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/app/lib/firebase';
 import { useRouter } from 'next/navigation';
 
@@ -34,11 +36,12 @@ export default function MainRegister() {
             const user = userCredential.user;
 
             // Store additional user info in Firestore
-            await addDoc(collection(db, 'users'), {
+            await setDoc(doc(db, 'users', user.uid), {
                 uid: user.uid,
                 name,
                 email,
                 role: 'user',
+                isAdmin: false,
                 createdAt: new Date().toISOString()
             });
 
