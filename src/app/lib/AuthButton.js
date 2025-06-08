@@ -25,8 +25,27 @@ export default function AuthButton() {
         }
     };
 
-    return React.createElement('button', {
-        onClick: handleAuthClick,
-        className: 'auth-button',
-    }, user ? 'Sign Out' : 'Sign In');
+    const regClick = async () => {
+        router.push('/register')
+    }
+
+    const elements = [
+        React.createElement('button', {
+            key: 'logInOut',
+            onClick: handleAuthClick,
+            className: 'auth-button',
+        }, user ? 'Sign Out' : 'Sign In'),
+    ]; // elements
+
+    if (!user) {
+        elements.push(
+            React.createElement('button', {
+                key: 'regButton',
+                onClick: regClick,
+                className: 'reg-Button'
+            }, 'register'),
+        ); // push
+    };// if not user
+
+    return React.createElement('div', {}, elements); // return
 }
