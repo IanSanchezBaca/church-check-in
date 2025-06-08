@@ -1,10 +1,9 @@
 /********************************************
  * register/page.js 
 *********************************************/
-
-
-
 'use client'
+
+import './login.css'
 
 import { useState } from 'react'
 import { signInWithEmailAndPassword } from 'firebase/auth'
@@ -29,31 +28,36 @@ export default function SignInPage() {
 
     return (
         <div>
-            <h1>Sign In</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Email</label><br />
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Password</label><br />
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                <button type="submit">
-                    Login In
-                </button>
-            </form>
+            <h1>Log In</h1>
+            <div>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label>Email</label>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label>Password</label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+
+                    {error && <p style={{ color: 'red' }}>{error}</p>}
+                    <div className='spec'>
+                        <button type="submit">
+                            Log In
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }

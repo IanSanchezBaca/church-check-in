@@ -60,7 +60,7 @@ export default function AdminPage() {
         })
 
         return () => unsubscribe()
-    }, [])
+    }, [router])
 
 
     if (loading) return <div>Loading...</div>
