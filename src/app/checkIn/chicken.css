@@ -1,6 +1,9 @@
 /********************************************
  * kids/chicken.css
 *********************************************/
+div {
+    background-color: none;
+}
 
 .chickenLayout {
     background-color: #fff3bd;
