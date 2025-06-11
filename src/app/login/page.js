@@ -3,8 +3,6 @@
 *********************************************/
 'use client'
 
-import './login.css'
-
 import { useState } from 'react'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '@/app/lib/firebase'
@@ -28,12 +26,13 @@ export default function SignInPage() {
 
     return (
         <div className="mainDivlogin">
-            <h1>Log In</h1>
+            <h1 className="loginHead1">Log In</h1>
             <div className="bodyDiv">
-                <form onSubmit={handleSubmit}>
+                <form className='mainLoginForm' onSubmit={handleSubmit}>
                     <div>
-                        <label>Email</label>
+                        <label className='mainLoginLabel'>Email</label>
                         <input
+                            className='mainLoginInput'
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -41,8 +40,9 @@ export default function SignInPage() {
                         />
                     </div>
                     <div>
-                        <label>Password</label>
+                        <label className='mainLoginLabel'>Password</label>
                         <input
+                            className='mainLoginInput'
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -52,7 +52,7 @@ export default function SignInPage() {
 
                     {error && <p style={{ color: 'red' }}>{error}</p>}
                     <div className='spec'>
-                        <button type="submit">
+                        <button className='mainLoginSubmit' type="submit">
                             Log In
                         </button>
                     </div>
