@@ -7,12 +7,13 @@ import './globals.css'
 
 export default function Home() {
   return (
-    <div>
+    <div className="rootLayout">
       <div style={{ textAlign: "right", marginRight: '10px' }}>
         <AuthButton />
       </div>
-      <h1 style={{ textAlign: "center" }}>Root Page</h1>
-      <div></div>
+      <h1 style={{ textAlign: "center" }}>
+        Hello!
+      </h1>
     </div >
   );
 }

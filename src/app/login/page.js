@@ -1,5 +1,5 @@
 /********************************************
- * register/page.js 
+ * Login/page.js 
 *********************************************/
 'use client'
 
@@ -27,9 +27,9 @@ export default function SignInPage() {
     }
 
     return (
-        <div>
+        <div className="mainDiv">
             <h1>Log In</h1>
-            <div>
+            <div className="bodyDiv">
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label>Email</label>

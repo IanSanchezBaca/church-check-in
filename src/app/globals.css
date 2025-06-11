@@ -15,3 +15,35 @@
 .myPadding {
     padding: 24px;
 }
+
+.rootLayout {
+    background-color: rgb(0, 0, 0);
+    min-height: 100vh;
+    color: #00f7ff;
+}
+
+.auth-button {
+    background-color: #00f7ff;
+    border: none;
+    margin-top: 1rem;
+    padding: .5rem 1rem;
+}
+
+.reg-Button {
+    background-color: #00f7ff;
+    border: none;
+    padding: .5rem 1rem;
+    margin: .5rem;
+}
+
+
+@media only screen and (max-width: 590px) {
+    .auth-button {
+        margin-top: 0;
+        margin-right: .5rem;
+    }
+
+    .reg-Button {
+        margin-left: .5rem;
+    }
+}

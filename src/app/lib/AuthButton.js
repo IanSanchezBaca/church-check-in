@@ -5,6 +5,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 
 export default function AuthButton() {
+
     const [user, setUser] = useState(null);
     const router = useRouter();
 
@@ -34,7 +35,7 @@ export default function AuthButton() {
             key: 'logInOut',
             onClick: handleAuthClick,
             className: 'auth-button',
-        }, user ? 'Sign Out' : 'Sign In'),
+        }, user ? 'Log Out' : 'Log In'),
     ]; // elements
 
     if (!user) {

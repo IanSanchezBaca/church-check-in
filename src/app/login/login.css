@@ -6,10 +6,10 @@ h1 {
 div {
     display: grid;
     /* flex-direction: column; */
-
     justify-content: center;
     text-align: center;
 }
+
 
 form {
     /* position: relative; */
@@ -23,6 +23,7 @@ label {
 
 input {
     width: 20rem;
+    background-color: rgb(189, 203, 207);
 }
 
 button {
@@ -36,6 +37,17 @@ button {
     margin-top: 2rem;
 }
 
+.mainDiv {
+    background-color: #000000;
+    min-height: 100vh;
+    color: #00f7ff;
+}
+
+.bodyDiv {
+    padding-bottom: 20rem;
+}
+
+
 @media only screen and (max-width: 590px) {
     input {
         height: 3rem;
@@ -46,5 +58,10 @@ button {
         background-color: rgb(0, 255, 0);
         padding: 2rem 5rem;
     }
+
+    .bodyDiv {
+        padding-bottom: 35rem;
+    }
+
 
 }
