@@ -27,7 +27,7 @@ export default function SignInPage() {
     }
 
     return (
-        <div className="mainDiv">
+        <div className="mainDivlogin">
             <h1>Log In</h1>
             <div className="bodyDiv">
                 <form onSubmit={handleSubmit}>

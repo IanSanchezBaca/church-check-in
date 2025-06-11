@@ -14,6 +14,7 @@ export default function Home() {
       <h1 style={{ textAlign: "center" }}>
         Hello!
       </h1>
+      <footer>*If the page looks weird just reload the page</footer>
     </div >
   );
 }

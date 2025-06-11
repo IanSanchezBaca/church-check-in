@@ -59,7 +59,7 @@ export default function MainRegister() {
     };
 
     /* The html stuff */
-    return React.createElement('div', { className: 'mainDiv' }, [
+    return React.createElement('div', { className: 'mainDivRegister' }, [
         React.createElement('h2', { key: 'mainRegHeading' }, 'Register'),
 
         React.createElement('form', { onSubmit: handleSubmit, key: 'formKey' }, [
