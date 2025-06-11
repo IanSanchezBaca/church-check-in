@@ -8,7 +8,9 @@
     min-height: 100vh;
 }
 
-/* This makes it so that divs are side by side */
+/********************************************
+ * checkIn/kids/page.js
+*********************************************/
 .row {
     display: flex;
     gap: 5px;
@@ -67,6 +69,10 @@ input[type=submit]:hover {
 
 /* This is probably when a phone opens the webpage */
 @media only screen and (max-width: 590px) {
+
+    /********************************************
+     * checkIn/kids/page.js
+    *********************************************/
     .row {
         /* this makes it so that its sortof in the middle of the screen*/
         margin-top: 5rem;
