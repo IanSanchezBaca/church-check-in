@@ -21,7 +21,7 @@ export default function AdminPage() {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (!user) {
                 console.log('No user found. Redirecting to login.')
-                router.push('/signin')
+                router.push('/login')
                 return
             }
 
