@@ -50,9 +50,14 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 
-## working on other machines
+## Working on a Different Machine
 
 Running this command should allow you to work on the website after cloning to a different machine
 ```
 npm install
+```
+
+Also need to install firebase to the new machine
+```
+npm install firebase
 ```
