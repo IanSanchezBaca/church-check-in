@@ -1,11 +1,13 @@
 ## to do list
+- [ ] **create the database page for admins**
+- [ ] **create the sign in page for parents**
+    - [ ] **also make it show up in the database page that theyre present for the class (morning/afternoon)**
+
 
 - [ ] fix the css for register as it breaks when you press register from the checkIn/kids page
 - [ ] make a checkbox to allow the password to be visible when typing password in login
-- [ ] create the database page for admins
-- [ ] create the sign in page for parents
-    - [ ] also make it show up in the database page that theyre present for the class (morning/afternoon)
-- [ ] make a report button?
+- [ ] Somehow make it so that it prints out reports.
+    - will need to ask maria what exactly she wants
 
 
 

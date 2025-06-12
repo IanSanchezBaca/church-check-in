@@ -1,6 +1,8 @@
+```js
 /********************************************
  * kids/admin/page.js 
  * This is a format for the stuff hopfully this should not be able to be accessed
+ * this page is no longer needed just using it as a thing
 *********************************************/
 
 'use client'
@@ -75,3 +77,5 @@ export default function AdminPage() {
         </div>
     )
 }
+
+```
