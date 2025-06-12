@@ -19,7 +19,8 @@ export default function MainRegister() {
     const [name, setName] = useState('');
     const router = useRouter();
 
-    const handleSubmit = async (e) => { /// function that will be called when submit button is pressed
+    const handleSubmit = async (e) => {
+        /*function that will be called when submit button is pressed*/
         e.preventDefault();
 
         if (!name || !email || !password) {

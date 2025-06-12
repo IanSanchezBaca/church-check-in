@@ -15,12 +15,12 @@ export default function Chick() {
             <div className="row">
                 <Link href="/checkIn/kids/signin" className="box" style={{ backgroundColor: "#b4f2f1", color: "black" }}>
                     <div>
-                        <h1>Sign In Kid(s)</h1>
+                        <p>Sign In Kid(s)</p>
                     </div>
                 </Link>
                 <Link href="/checkIn/kids/reg" className="box" style={{ backgroundColor: "#b4f2f1", color: "black" }}>
                     <div>
-                        <h1>Register Kid(s)</h1>
+                        <p>Register Kid(s)</p>
                     </div>
                 </Link>
             </div>
