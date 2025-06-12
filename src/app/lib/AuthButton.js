@@ -52,5 +52,5 @@ export default function AuthButton() {
         ); // push
     };// if not user
 
-    return React.createElement('div', {}, elements); // return
+    return React.createElement('div', { className: "NAVBAR" }, elements); // return
 }

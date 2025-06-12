@@ -1,10 +1,8 @@
 /********************************************
- * kids/chicken.css
+ * checkIn/chicken.css
 *********************************************/
-
 .chickenLayout {
     background-color: #fff3bd;
-    /* min-height: auto; */
     min-height: 100vh;
 }
 

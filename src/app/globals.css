@@ -10,19 +10,8 @@
 /********************************************
  * root css
 *********************************************/
-.smallPadding {
-    padding: 8px;
-
-}
-
-.myPadding {
-    padding: 24px;
-}
-
-.rootLayout {
-    background-color: rgb(0, 0, 0);
-    min-height: 100vh;
-    color: #00f7ff;
+.NAVBAR {
+    background-color: black;
 }
 
 .auth-button {
@@ -38,6 +27,23 @@
     padding: .5rem 1rem;
     margin: .5rem;
 }
+
+.smallPadding {
+    padding: 8px;
+
+}
+
+.myPadding {
+    padding: 24px;
+}
+
+.rootLayout {
+    background-color: rgb(0, 0, 0);
+    min-height: 100vh;
+    color: #00f7ff;
+}
+
+
 
 /********************************************
  * root/login css
@@ -78,6 +84,10 @@
 .mainLoginInput {
     width: 20rem;
     background-color: rgb(189, 203, 207);
+}
+
+.mainLoginSubmit {
+    background-color: #00f7ff;
 }
 
 /********************************************
@@ -148,8 +158,9 @@
     }
 
     .mainLoginSubmit {
-        background-color: rgb(0, 255, 0);
-        padding: 2rem 5rem;
+        /* background-color: #39FF14; */
+        height: 5rem;
+        width: 100vw;
     }
 
     /********************************************
@@ -164,7 +175,7 @@
         /* this is the submit button */
         width: 100%;
         height: 5rem;
-        background-color: rgb(124, 228, 124);
+        /* background-color: #39FF14; */
     }
 
     .mainRegInput {

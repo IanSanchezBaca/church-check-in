@@ -1,5 +1,6 @@
 /********************************************
  * kids/admin/page.js 
+ * This is a format for the stuff hopfully this should not be able to be accessed
 *********************************************/
 
 'use client'
@@ -20,12 +21,9 @@ export default function AdminPage() {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (!user) {
-                console.log('No user found. Redirecting to login.')
                 router.push('/login')
                 return
             }
-
-            console.log('User signed in:', user.uid)
 
             try {
                 const userRef = doc(db, 'users', user.uid)

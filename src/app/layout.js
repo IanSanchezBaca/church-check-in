@@ -3,6 +3,7 @@
 *********************************************/
 import "./globals.css";
 import Link from "next/link";
+import AuthButton from "./lib/AuthButton";
 
 
 export const metadata = {
@@ -23,6 +24,9 @@ export default function RootLayout({ children }) {
 
       <body>
         <main>
+          <div style={{ textAlign: "right" }}>
+            <AuthButton />
+          </div>
           {children}
         </main>
       </body>
