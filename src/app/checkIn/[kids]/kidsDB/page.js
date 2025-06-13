@@ -105,7 +105,7 @@ export default function KidsDB() {
                     element('li', { key: item.id, className: "kdbli" },
                         [
                             `${item.firstName} ${item.lastName}`,
-                            element('ul', { key: 'dbkul' },
+                            element('ul', { key: 'dbkul', className: 'dbkul' },
                                 item.kids?.map((kid, index) =>
                                     element('li', { key: index }, `${kid.firstName} ${kid.lastName}`)
                                 )

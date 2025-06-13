@@ -130,9 +130,17 @@
 /********************************************
  * kid data base
 *********************************************/
-/* .KidsDBMainDiv {
+.KidsDBMainDiv {
     text-align: center;
-} */
+}
+
+.KDBinputwrapper {}
+
+.kdbul {
+    background-color: #B1BFEB;
+}
+
+.dbkul {}
 
 
 
