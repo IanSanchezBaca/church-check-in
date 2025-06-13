@@ -10,7 +10,8 @@ export const metadata = {
 
 export default function chickenLayout({ children }) {
     return (
-        <div className="myPadding chickenLayout">
+        // <div className="myPadding chickenLayout">
+        <div>
             {children}
         </div>
     );
