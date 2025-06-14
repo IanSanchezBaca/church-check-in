@@ -65,7 +65,7 @@ export default function KidsDB() {
 
         const kfn = kidFirstName.toLowerCase();
         const kln = kidLastName.toLowerCase();
-        const kidId = kidID.toLocaleLowerCase();
+        const kidId = kidID.toLowerCase();
         const pfn = parentFirstName.toLowerCase();
 
         const matches = []
@@ -77,12 +77,15 @@ export default function KidsDB() {
 
             for (const kid of parent.kids) {
                 const matchKidFirst = kfn && kid.firstName?.toLowerCase().includes(kfn);
-                const matchKidLast = kln && kidLastName?.toLowerCase().includes(kln);
+                const matchKidLast = kln && kid.lastName?.toLowerCase().includes(kln);
                 const matchKidID = kidId && kid.id?.toLowerCase().includes(kidId);
                 const matchParent = pfn && parentFirst.includes(pfn);
 
                 /* if any field is filled and matches, add this kid to the list */
-                const match = (!kfn || matchKidFirst) && (!kln || matchKidLast) && (!kidId || matchKidID) && (!pfn || matchParent);
+                const match = (!kfn || matchKidFirst)
+                    && (!kln || matchKidLast)
+                    && (!kidId || matchKidID)
+                    && (!pfn || matchParent);
 
                 if (match) {
                     matches.push({
