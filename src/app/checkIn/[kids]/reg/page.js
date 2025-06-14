@@ -24,6 +24,7 @@ export default function CheckinPage() {
         phone: '',
         emergency: ''
     });
+
     const [kids, setKids] = useState([{
         firstName: '',
         lastName: '',
@@ -44,14 +45,17 @@ export default function CheckinPage() {
     const handleParentChange = (field, value) => {
         setParent({ ...parent, [field]: value });
     };
+
     const handleKidChange = (index, field, value) => {
         const newKids = [...kids];
         newKids[index][field] = value;
         setKids(newKids);
     };
+
     const addAnotherKid = () => {
         setKids([...kids, { firstName: '', lastName: '', birthdate: '', allergies: '' }]);
     };
+
     const handleSubmit = async (e) => {
         /*Prevents default form submission
          * from my understanding this makes it so that they cant submit a blank form
@@ -97,7 +101,7 @@ export default function CheckinPage() {
             console.error(err);
             alert('Error saving to database.');
         }
-    };
+    }; // handle submit
 
     return React.createElement('form', { onSubmit: handleSubmit },
         [React.createElement('h2', { key: 'heading-parent' }, 'Parent Info')].concat(
@@ -146,20 +150,23 @@ export default function CheckinPage() {
                     className: 'kidAddBtn',
                 }, 'Add Another Kid'),
 
-                React.createElement('div', {
-                    key: `submit-button-container`,
-                    className: 'submitButtonContainer'
-                },
+                React.createElement(
+                    'div',
+                    {
+                        key: `submit-button-container`,
+                        className: 'submitButtonContainer'
+                    },
                     [
                         React.createElement('button', {
                             type: 'submit',
                             key: 'submit',
                             className: 'submitButton'
                         }, 'Submit')
-                    ])
+                    ]
+                )
             ]
         )
-    );
+    ); // return
 } // checkinpage
 
 

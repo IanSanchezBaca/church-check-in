@@ -44,11 +44,12 @@ export default function KidsDB() {
                 if (userData.isAdmin === true) {
                     setIsAdmin(true)
                 }
-
             }
+
+
         })
         return () => unsubscribe()
-    }, [router]) // admin checker
+    }, []) // admin checker
 
     /* The search function */
     const search = async () => {

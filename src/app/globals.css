@@ -8,6 +8,25 @@
 **/
 
 /********************************************
+ * kid database button
+*********************************************/
+.adminButton {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.adminButtonLink {
+    color: #00ff40;
+    background-color: #000000;
+    font-size: 50px;
+    padding: 3rem;
+}
+
+/********************************************
+ * kid database button END
+*********************************************/
+
+/********************************************
  * root css
 *********************************************/
 .NAVBAR {
@@ -219,6 +238,21 @@
 
 
 @media only screen and (max-width: 590px) {
+
+    /********************************************
+    * @media kid database button
+    *********************************************/
+    .adminButton {
+        display: flex;
+        margin-top: 3px;
+    }
+
+    .adminButtonLink {
+        font-size: 34px;
+        min-width: 100vw;
+
+    }
+
 
     /********************************************
      * @media root

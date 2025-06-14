@@ -15,6 +15,7 @@ export default function AdminButton() {
     const [isAdmin, setIsAdmin] = useState(false)
     const router = useRouter();
 
+    /* check if the user is admin */
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
@@ -32,7 +33,7 @@ export default function AdminButton() {
         });
 
         return () => unsubscribe();
-    }, [router]);
+    }, []);
 
     if (!isAdmin) {
         return null
@@ -45,8 +46,7 @@ export default function AdminButton() {
                 key: "amdinButtonLink",
                 href: '/checkIn/kids/kidsDB',
                 className: 'adminButtonLink'
-            },
-                "Kids Database")
+            }, "Kids Database")
         ]
     ) // return
 
