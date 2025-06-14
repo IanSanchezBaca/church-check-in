@@ -8,7 +8,7 @@
 import React, { useEffect, useState } from 'react'
 import { auth, db } from '@/app/lib/firebase'
 import { onAuthStateChanged } from 'firebase/auth'
-import { doc, getDoc, collection, getDocs, query, where } from 'firebase/firestore'
+import { doc, getDoc, collection, getDocs } from 'firebase/firestore'
 import { useRouter } from 'next/navigation'
 
 const { createElement: element } = React
@@ -24,13 +24,13 @@ export default function KidsDB() {
     const [kidLastName, setKidLastName] = useState('')
     const [kidID, setKidID] = useState('')
     const [parentFirstName, setParentFirstName] = useState('')
+    const [parents, setParents] = useState([])
 
 
-    /* this function only checks if the user is an admin */
-    useEffect(() => {
+
+    useEffect(() => { // check if the user isAdmin if so then load the database
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            /* if theyre not signed in they shouldnt be able to use this page */
-            if (!user) {
+            if (!user) { // first checking if they're signed in
                 router.push('/')
                 return
             }
@@ -40,30 +40,33 @@ export default function KidsDB() {
 
             if (userDoc.exists()) {
                 const userData = userDoc.data()
-
                 if (userData.isAdmin === true) {
                     setIsAdmin(true)
                 }
+                else {
+                    router.push('/')
+                    return
+                }
+            }
+            else {
+                router.push('/')
+                return
             }
 
+            const querySnapshot = await getDocs(collection(db, "parents"));
+            const parents = querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
 
-        })
-        return () => unsubscribe()
-    }, []) // admin checker
+            setParents(parents);
+
+        });
+        return () => unsubscribe();
+    }, []); // useEffect
 
     /* The search function */
     const search = async () => {
-        /* if the button was pressed and there was no keyword, do nothing */
-        // if (!keyword) return;
-
-        /* this really worries me as this reads all the parents at one time 
-         *** some things to think about, maybe load it for the day then delete it to save memory? */
-        const querySnapshot = await getDocs(collection(db, "parents"));
-        const parents = querySnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data(),
-        }));
-
         const kfn = kidFirstName.toLowerCase();
         const kln = kidLastName.toLowerCase();
         const kidId = kidID.toLowerCase();
