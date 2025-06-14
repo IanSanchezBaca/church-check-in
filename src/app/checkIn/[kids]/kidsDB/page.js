@@ -153,9 +153,7 @@ export default function KidsDB() {
                 ]
             ),
 
-
-
-            element('ul', { key: "kdbul", className: 'kdbul' },
+            element('div', { key: "kdbcardsdiv", className: 'kdbcardsdiv' },
                 results.map((entry, index) =>
                     element('div', { key: index, className: 'kdbcard' }, [
                         element('p',
@@ -172,12 +170,13 @@ export default function KidsDB() {
                         ), // kid birthday
                         element('p',
                             { key: "kdbkidallergies", className: 'kdbkidallergies' },
-                            `Allergies ${entry.kid.allergies || 'None'}`,
+                            `Allergies: ${entry.kid.allergies || 'None'}`,
                         ), // kid allergies
 
-                        /* Parent info */
-
+                        // break
                         element('hr', { key: 'kdbhr', className: "kdbhr" }),
+
+                        /* Parent info */
                         element('p',
                             {
                                 key: 'kdbparentname', className: "kdbparentname"
@@ -192,10 +191,6 @@ export default function KidsDB() {
                             { key: 'kdbparentemergenC', className: "kdbparentemergenC" },
                             `Emergency: ${entry.parent.emergency || 'N/A'}`
                         ), // parent name
-
-
-
-
                     ]) // div
                 )
             ),

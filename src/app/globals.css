@@ -186,22 +186,30 @@
     text-align: center;
 }
 
-.kdbcard {
-    margin: 1rem;
-    margin-left: 0;
-    padding: .5rem;
-    border: solid;
-}
-
 .KDBinputwrapper {
     text-align: center;
 }
 
+.kdbinput {
+    margin: 1px;
+}
+
 .searchbuttonwrapper {
     padding-top: .5rem;
-
     text-align: center;
 }
+
+.kdbcard {
+    background-color: #FFFAE6;
+    margin: 1rem;
+    padding: 1rem;
+
+    border: solid;
+}
+
+.kdbcardsdiv {}
+
+
 
 /********************************************
  * kid data base END
@@ -294,7 +302,18 @@
 
     .kdbsearchbutton {
         padding: 2rem 10rem;
+        background-color: #B4F2F1;
     }
+
+    .KDBinputwrapper {}
+
+    .kdbinput {
+        display: flex;
+        flex-direction: column;
+        max-width: 99vw;
+        height: 3rem;
+    }
+
 
 }
 
