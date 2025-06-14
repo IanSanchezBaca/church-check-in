@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
 
       <body>
         <main>
-          <div style={{ textAlign: "right" }}>
+          <div>
             <AuthButton />
           </div>
           {children}

@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="rootLayout">
 
-      <h1 style={{ textAlign: "center" }}>
+      <h1>
         Hello!
       </h1>
 

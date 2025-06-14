@@ -1,7 +1,7 @@
 /********************************************
  * checkin/page.js 
 *********************************************/
-import "./chicken.css"
+// import "./chicken.css"
 
 export default function chicken() {
     return (

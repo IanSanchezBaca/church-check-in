@@ -1,7 +1,6 @@
 /********************************************
  * kids/layout.js
 *********************************************/
-import "./chicken.css";
 
 export const metadata = {
     title: 'Check in',
@@ -10,8 +9,7 @@ export const metadata = {
 
 export default function chickenLayout({ children }) {
     return (
-        // <div className="myPadding chickenLayout">
-        <div>
+        <div className="chickenMainDiv">
             {children}
         </div>
     );

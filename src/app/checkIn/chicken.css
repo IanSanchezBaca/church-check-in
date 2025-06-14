@@ -1,46 +1,4 @@
-/********************************************
- * checkIn/chicken.css
-*********************************************/
-.chickenLayout {
-    background-color: #fff3bd;
-    min-height: 100vh;
-}
-
-/********************************************
- * checkIn/kids/page.js
-*********************************************/
-.row {
-    display: flex;
-    gap: 5px;
-}
-
-.box {
-    flex: 1;
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    /* center horizontally */
-    align-items: center;
-    /* center vertically */
-    border: 5px solid black;
-
-    font-size: 50px;
-}
-
-.myCenterX {
-    display: flex;
-    justify-content: center;
-    /* horizontal center */
-}
-
-.myCenterY {
-    align-items: center;
-    /* vertical center */
-    height: 100vh;
-    /* fill viewport height */
-}
-
-
+/* this will now only be used for register */
 input[type=text],
 select {
     width: 100%;
@@ -54,7 +12,7 @@ select {
 
 input[type=submit] {
     width: 100%;
-    background-color: #4CAF50;
+    background-color: #ffffff;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -65,29 +23,6 @@ input[type=submit] {
 
 input[type=submit]:hover {
     background-color: #45a049;
-}
-
-/* This is probably when a phone opens the webpage */
-@media only screen and (max-width: 590px) {
-
-    /********************************************
-     * checkIn/kids/page.js
-    *********************************************/
-    .row {
-        /* this makes it so that its sortof in the middle of the screen*/
-        margin-top: 5rem;
-
-        display: flex;
-        gap: 5px;
-        flex-direction: column;
-    }
-
-    .box {
-        padding: 5rem;
-        font-size: 34px;
-    }
-
-
 }
 
 
