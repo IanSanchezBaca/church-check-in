@@ -11,6 +11,8 @@
 - [ ] Somehow make it so that it prints out reports.
     - will need to ask maria what exactly she wants
 
+- [ ] if user is admin have the database preloaded so that it saves on reads when they go into the database.
+    - also probably preload what the user is instead of checking everytime
 
 
 <br/><br/><br/><br/><br/><br/><br/><br/>
