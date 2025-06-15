@@ -206,7 +206,7 @@ export default function SignIn() {
 
     return element('div', { className: "kidsigninMainDiv" },
         [
-            element('h2', { key: "kidsigninH2", className: "kidsigninH2" }, "Sign In Kid"), // heading 2
+            element('p', { key: "kidsigninH2", className: "kidsigninH2" }, "Sign In Kid"), // heading 2
 
             element('p',
                 {
@@ -222,7 +222,7 @@ export default function SignIn() {
                 element('input', {
                     key: "ksiinputkey",
                     className: "ksiinput",
-                    placeholder: "Kid ID",
+                    placeholder: "Kid ID (example: 00003)",
                     value: KID,
                     onChange: (e) => setID(e.target.value),
                 }), // input
