@@ -1,18 +1,24 @@
 ## to do list
-- [x] **create the database page for admins**
+**- [ ] make it so that the parents collection and the specific month-year document is loaded for signing in**
 
-- [ ] **create the sign in page for parents**
-    - [ ] **also make it show up in the database page that theyre present for the class (morning/afternoon)**
+**- [ ] currently am not checking if the kid exists before sign in signs them in**
 
-- [x] fix the css for register as it breaks when you press register from the checkIn/kids page
+**- [x] create the database page for admins**
+
+**- [x] create the sign in page for parents**
+    **- [x] also make it show up in the database page that theyre present for the class (morning/afternoon)**
+
+**- [x] fix the css for register as it breaks when you press register from the checkIn/kids page**
 
 - [ ] make a checkbox to allow the password to be visible when typing password in login
 
 - [ ] Somehow make it so that it prints out reports.
     - will need to ask maria what exactly she wants
 
-- [ ] if user is admin have the database preloaded so that it saves on reads when they go into the database.
-    - also probably preload what the user is instead of checking everytime
+
+
+
+    
 
 
 <br/><br/><br/><br/><br/><br/><br/><br/>
