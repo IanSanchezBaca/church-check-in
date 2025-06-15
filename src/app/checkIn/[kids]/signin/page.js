@@ -58,7 +58,7 @@ export default function SignIn() {
             const monthYear = `${month}-${year}`;
 
             /** get the reference to the current date's doc **/
-            const attendanceCollectionReference = collection(db, monthYear); // this is a reference to the collection not the actuall collection
+            const attendanceCollectionReference = collection(db, "attendance"); // this is a reference to the collection not the actuall collection
             const attendanceDocumentReference = doc(attendanceCollectionReference, monthYear); // reference to doc in collection
 
             try {
