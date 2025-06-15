@@ -6,6 +6,14 @@
 import React, { useEffect, useState } from 'react';
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from '@/app/lib/firebase';
+import { Bouncy } from 'ldrs/react'
+import 'ldrs/react/Bouncy.css'
+// Default values shown
+<Bouncy
+    size="45"
+    speed="1.75"
+    color="black"
+/>
 
 const { createElement: element } = React
 
@@ -15,12 +23,17 @@ const { createElement: element } = React
 export default function SignIn() {
     const [KID, setID] = useState(''); // this is for the kid sign in
 
-    // these are for the date
+    /* variables used for the date and for preloading */
     const [day, setDay] = useState('');
     const [month, setMonth] = useState('');
     const [year, setYear] = useState('');
     const [hour, setHour] = useState('');
     const [min, setMin] = useState('');
+
+    /* variables used for preloading */
+    const [monthAttendance, setMonthAttendance] = useState(null) // this will hold the pre loaded month and stuff
+    const [isLoading, setisLoading] = useState(true); // idk i guess makes the user wait to preload the database
+
 
     useEffect(() => { // get the date
         /* get the date */
@@ -45,7 +58,44 @@ export default function SignIn() {
         const min = today.getMinutes();
         setMin(min);
 
+        const preload = async () => {
+            setisLoading(true); // just waits until the database loads so that it 
+            /* preload the database */
+            const monthYear = `${month}-${year}`;
 
+            /** get the reference to the current date's doc **/
+            const attendanceCollectionReference = collection(db, monthYear); // this is a reference to the collection not the actuall collection
+            const attendanceDocumentReference = doc(attendanceCollectionReference, monthYear); // reference to doc in collection
+
+            try {
+                /**  Read: Attempt to get the document for the current month/year **/
+                const docSnap = await getDoc(attendanceDocumentReference); // this is the actuall doc
+
+                if (docSnap.exists()) { // if it exists save the data to the variable monthAttendance
+                    setMonthAttendance(docSnap.data());
+                }
+                else {
+                    /* if it doesn't exists create an emtpy map
+                     * This signals its ready to be created
+                    **/
+                    setPreloadedMonthAttendance({});
+                }
+
+            }// try
+            catch (e) {
+                alert("sorry something went wrong please reload the page.")
+                setPreloadedMonthAttendance(null);
+                console.error("Error preloading month attendance:", e);
+            }
+            finally {
+                setisLoading(false);
+            }
+        }; // preload
+
+        /* run the function to preload the database */
+        preload();
+
+        /* if i want this effect to rerun when a variable is changed add that variable inside the [] */
     }, []); // useEffect
 
     const signin = async (e) => {
@@ -53,10 +103,12 @@ export default function SignIn() {
             alert("Please type your kid's ID to sign them in.");
             return;
         }
-
-
-
+        alert("currently Work In Progress.")
     } // signin
+
+
+
+
 
     return element('div', { className: "kidsigninMainDiv" },
         [
