@@ -232,7 +232,20 @@
  * kid data base END
 *********************************************/
 
+/********************************************
+ * kid sign in
+*********************************************/
+.signinkidbouncydiv {
+    display: flex;
+    justify-content: center;
+    padding-top: 25vh;
+}
 
+.kidsigninBouncy {}
+
+/********************************************
+ * kid sign in END
+*********************************************/
 
 
 @media only screen and (max-width: 590px) {
