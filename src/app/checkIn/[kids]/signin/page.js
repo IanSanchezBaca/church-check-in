@@ -7,10 +7,6 @@ import React, { useEffect, useState, useContext } from 'react';
 import { doc, /*getDoc,*/ setDoc, updateDoc, collection } from "firebase/firestore"; // i no longer need to get doc here
 import { db } from '@/app/lib/firebase'; //this is no longer needed since im using context
 
-/* not needed in this file
-import { Bouncy } from 'ldrs/react'
-import 'ldrs/react/Bouncy.css'
-*/
 const { createElement: element } = React
 
 import { EagleKidsPreloadContext } from '@/context/EagleKidsPreload';
@@ -18,13 +14,13 @@ import { EagleKidsPreloadContext } from '@/context/EagleKidsPreload';
 
 export default function SignInPage() {
     const {
-        isAdmin,
-        userData,
+        // isAdmin,
+        // userData,
         day, month, year, hour, min, currDate,
         AttendanceDB,
-        attendanceIsLoading,
+        // attendanceIsLoading,
         parentsDB,
-        parentsDBIsLoading,
+        // parentsDBIsLoading,
         updatePreloadedAttendance,
     } = useContext(EagleKidsPreloadContext);
 
@@ -47,12 +43,8 @@ export default function SignInPage() {
 
 
     const signin = async () => {
-        /* do some checks */
         const kidId = ID // remove whitespace from ends of text
-        // if (!kidId) { // make sure the user types something in
-        //     alert("Please type your kid's ID to sign them in.");
-        //     return;
-        // }
+
 
         const currHour = currDate.getHours();
         const period = currHour < 11 ? 'morning' : 'afternoon';

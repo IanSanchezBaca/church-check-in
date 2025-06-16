@@ -5,15 +5,30 @@
 'use client';
 
 import "./reg.css"
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { db } from '@/app/lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { getNextKidId } from "@/app/lib/firebaseUtils";
+import { useRouter } from 'next/navigation'
 
+import { EagleKidsPreloadContext } from '@/context/EagleKidsPreload';
 
 
 
 export default function CheckinPage() {
+
+    const {
+        // isAdmin,
+        // userData,
+        // day, month, year, hour, min, currDate,
+        // AttendanceDB,
+        // attendanceIsLoading,
+        parentsDB,
+        // parentsDBIsLoading,
+        // updatePreloadedAttendance,
+    } = useContext(EagleKidsPreloadContext);
+
+
     /* State Hooks
      * parent stores first name, last name, phone, emergency contact.
      * kids is an array of kid objects (one or more). 
@@ -93,6 +108,8 @@ export default function CheckinPage() {
             });
 
             alert('Reg complete!');
+
+            useRouter().push("/checkIn/kids");
 
             // Reset form
             setParent({ firstName: '', lastName: '', phone: '', emergency: '' });

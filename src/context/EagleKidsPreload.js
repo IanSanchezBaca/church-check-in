@@ -10,7 +10,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { auth, db } from '@/app/lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
+import { doc, getDoc, collection, query, onSnapshot } from 'firebase/firestore';
 
 
 // 1. Create the Context object
@@ -56,7 +56,7 @@ export const EagleKidsPreloadProvider = ({ children }) => {
 
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) { // this will be used later for other stuff
-                // check the 'users' collection to check if isAdmin
+                console.log("EagleKidsPreload: user found fetching data")
                 const usersRef = doc(db, 'users', user.uid)
                 const userDoc = await getDoc(usersRef);
 
@@ -64,13 +64,22 @@ export const EagleKidsPreloadProvider = ({ children }) => {
                     const userDat = userDoc.data();
                     setUserData(userDat);
 
+                    // console.log(`EagleKidsPreload: ${userDat.isAdmin}`);
+
                     if (userDat.isAdmin === true) {
                         setIsAdmin(true);
                     }
                 }
             }
+            else {
+                console.log("EagleKidsPreload: user not found")
+            }
+
+
 
         }); // unsubscribe
+
+
 
         return () => unsubscribe();
 
@@ -89,47 +98,47 @@ export const EagleKidsPreloadProvider = ({ children }) => {
 
 
     useEffect(() => { // preload attendance database for current day
-        setAttendanceIsLoading(true); // attendence is loading now
+        if (month && year) {
+            setAttendanceIsLoading(true); // attendence is loading now
 
-        const preloadAttendanceDB = async () => {
-            const monthYear = `${month}-${year}`;
+            const preloadAttendanceDB = async () => {
+                const monthYear = `${month}-${year}`;
 
-            /** get the reference to the current date's doc **/
-            const attendanceCollectionRef = collection(db, "attendance"); // this is a reference to the collection not the actuall collection
+                /** get the reference to the current date's doc **/
+                const attendanceCollectionRef = collection(db, "attendance"); // this is a reference to the collection not the actuall collection
 
-            const attendanceDocRef = doc(attendanceCollectionRef, monthYear); // reference to doc in collection
+                const attendanceDocRef = doc(attendanceCollectionRef, monthYear); // reference to doc in collection
 
-            try {
-                /* attempt to get the doc for the currenct monthYear */
-                console.log(`Attempting to preload attendance for ${monthYear}...`);
-                const docSnap = await getDoc(attendanceDocRef);
-                // this is the actuall doc
+                try {
+                    /* attempt to get the doc for the currenct monthYear */
+                    console.log(`EagleKidsPreload: Attempting to preload attendance for ${monthYear}...`);
+                    const docSnap = await getDoc(attendanceDocRef);
+                    // this is the actuall doc
 
-                if (docSnap.exists()) {
-                    setAttendanceDB(docSnap.data());
-                    console.log(`Preloaded data for ${monthYear}.`);
-                }
-                else {
-                    /* if it doesn't exists create an emtpy map
-                    * This signals its ready to be created
-                   **/
-                    setAttendanceDB({});
-                    console.log(`No existing data for ${monthYear}, ready to create.`);
-                }
-            }// try
-            catch (e) {
-                alert("sorry something went wrong.")
-                setAttendanceDB(null);
-                console.error("Error preloading month attendance:", e);
-            }// catch
-            finally {
-                setAttendanceIsLoading(false);
-            }// finally
-        }; // preloadAttendanceDB
-
-        preloadAttendanceDB();
-
-    }, [db, month, year]); // useEffect: preload attendance database for current day
+                    if (docSnap.exists()) {
+                        setAttendanceDB(docSnap.data());
+                        console.log(`EagleKidsPreload: Preloaded data for ${monthYear}.`);
+                    }
+                    else {
+                        /* if it doesn't exists create an emtpy map
+                        * This signals its ready to be created
+                       **/
+                        setAttendanceDB({});
+                        console.log(`EagleKidsPreload: No existing data for ${monthYear}, ready to create.`);
+                    }
+                }// try
+                catch (e) {
+                    alert("sorry something went wrong.")
+                    setAttendanceDB(null);
+                    console.error("Error preloading month attendance:", e);
+                }// catch
+                finally {
+                    setAttendanceIsLoading(false);
+                }// finally
+            } // preloadAttendanceDB
+            preloadAttendanceDB();
+        }
+    }, [month, year]); // useEffect: preload attendance database for current day
 
     useEffect(() => { // preload parent database
         setParentsDBIsLoading(true);
@@ -138,19 +147,23 @@ export const EagleKidsPreloadProvider = ({ children }) => {
             const parentsCollectionRef = collection(db, "parents");
 
             try {
-                const querySnapshot = await getDocs(parentsCollectionRef);
+                const q = query(parentsCollectionRef);
                 const parents = [];
 
-                querySnapshot.forEach((doc) => {
-                    parents.push({
-                        id: doc.id,
-                        ...doc.data(),
+                onSnapshot(q, (querySnapshot) => {
+                    // this makes it so that admins no longer need to reload
+                    querySnapshot.forEach((doc) => {
+                        parents.push({
+                            id: doc.id,
+                            ...doc.data(),
+                        });
                     });
+
                 });
 
                 setParentsDB(parents);
 
-                console.log("ParentsDB loaded")
+                console.log("EagleKidsPreload: ParentsDB loaded")
             }
             catch (e) {
                 console.error("preload parents error: ", e);
@@ -163,7 +176,7 @@ export const EagleKidsPreloadProvider = ({ children }) => {
 
         preloadParentsDB();
 
-    }, [db]);
+    }, []);
 
     const contextValue = {
         isAdmin,
