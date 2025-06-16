@@ -24,19 +24,23 @@ export default function KidsDB() {
     const [kidLastName, setKidLastName] = useState('')
     const [kidID, setKidID] = useState('')
     const [parentFirstName, setParentFirstName] = useState('')
-    const [parents, setParents] = useState([])
+    const [parents, setParents] = useState([]); // this will probably no longer be needed in this file
 
 
 
     useEffect(() => { // check if the user isAdmin if so then load the database
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
+            // this part will be changed to check if userId is null
             if (!user) { // first checking if they're signed in
                 router.push('/')
                 return
             }
 
+            // this part will no longer be needed
             const userRef = doc(db, 'users', user.uid)
             const userDoc = await getDoc(userRef)
+            ///////////////////////////////////////
+
 
             if (userDoc.exists()) {
                 const userData = userDoc.data()
@@ -53,13 +57,14 @@ export default function KidsDB() {
                 return
             }
 
+            /****** This will probably not be needed in this file anymore *************/
             const querySnapshot = await getDocs(collection(db, "parents"));
             const parents = querySnapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data(),
             }));
-
             setParents(parents);
+            /****** This will probably not be needed in this file anymore *************/
 
         });
         return () => unsubscribe();

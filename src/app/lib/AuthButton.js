@@ -40,6 +40,8 @@ export default function AuthButton() {
             onClick: handleAuthClick,
             className: 'auth-button',
         }, user ? 'Log Out' : 'Log In'),
+
+
     ]; // elements
 
     if (!user) {
