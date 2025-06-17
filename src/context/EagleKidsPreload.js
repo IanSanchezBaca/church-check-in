@@ -83,7 +83,7 @@ export const EagleKidsPreloadProvider = ({ children }) => {
 
         return () => unsubscribe();
 
-    }, [auth]);// useEffect: this resets when auth changes
+    }, [/*auth*/]);// useEffect: this resets when auth changes
 
     useEffect(() => { // get date and time, used for attendance database
         const today = new Date(); // current date

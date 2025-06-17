@@ -13,6 +13,8 @@ import { useRouter } from 'next/navigation'
 
 import { EagleKidsPreloadContext } from '@/context/EagleKidsPreload';
 
+import { Bouncy } from 'ldrs/react'
+import 'ldrs/react/Bouncy.css'
 
 
 export default function CheckinPage() {
@@ -109,7 +111,7 @@ export default function CheckinPage() {
 
             alert('Reg complete!');
 
-            useRouter().push("/checkIn/kids");
+            useRouter.push("/checkIn/kids");
 
             // Reset form
             setParent({ firstName: '', lastName: '', phone: '', emergency: '' });

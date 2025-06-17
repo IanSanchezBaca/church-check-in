@@ -5,6 +5,9 @@
 *********************************************/
 'use client'
 
+import { Bouncy } from 'ldrs/react'
+import 'ldrs/react/Bouncy.css'
+
 import React, { useEffect, useState, useContext } from 'react'
 // import { auth, db } from '@/app/lib/firebase'
 // import { onAuthStateChanged } from 'firebase/auth'
@@ -53,7 +56,7 @@ export default function KidsDB() {
             router.push('/')
             console.log('userData is null')
         }
-    }, [router, isAdmin]); // useEffect
+    }, [router, isAdmin, userData]); // useEffect
 
     /* The search function */
     const search = async () => {
