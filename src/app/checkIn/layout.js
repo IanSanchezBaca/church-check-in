@@ -1,6 +1,13 @@
 /********************************************
- * kids/layout.js
+ * checkIn/layout.js
 *********************************************/
+/* loading screen
+import { Bouncy } from 'ldrs/react'
+import 'ldrs/react/Bouncy.css'
+*/
+
+import { EagleKidsPreloadProvider } from "@/context/EagleKidsPreload";
+
 
 export const metadata = {
     title: 'Check in',
@@ -10,7 +17,9 @@ export const metadata = {
 export default function chickenLayout({ children }) {
     return (
         <div className="chickenMainDiv">
-            {children}
+            <EagleKidsPreloadProvider>
+                {children}
+            </EagleKidsPreloadProvider>
         </div>
     );
 }

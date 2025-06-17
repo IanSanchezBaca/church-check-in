@@ -14,7 +14,7 @@ export default function Home() {
         Hello!
       </h1>
 
-      <AdminButton />
+      {/* <AdminButton /> */}
 
     </div >
   );

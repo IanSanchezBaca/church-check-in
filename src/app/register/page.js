@@ -73,7 +73,7 @@ export default function MainRegister() {
                         React.createElement('input', {
                             key: 'username',
                             type: 'text',
-                            placeholder: 'Username',
+                            placeholder: 'Name',
                             value: name,
                             onChange: (e) => setName(e.target.value),
                             className: 'mainRegInput',
