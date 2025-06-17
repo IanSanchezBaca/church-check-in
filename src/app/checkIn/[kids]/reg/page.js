@@ -24,7 +24,7 @@ export default function CheckinPage() {
         // AttendanceDB,
         // attendanceIsLoading,
         parentsDB,
-        // parentsDBIsLoading,
+        parentsDBIsLoading,
         // updatePreloadedAttendance,
     } = useContext(EagleKidsPreloadContext);
 
@@ -119,6 +119,21 @@ export default function CheckinPage() {
             alert('Error saving to database.');
         }
     }; // handle submit
+
+
+    /* cool little loading screen */
+    if (parentsDBIsLoading) return <div className='signinkidbouncydiv'>
+        <Bouncy
+            className="kidsigninBouncy"
+            size="200"
+            speed="1.75"
+            color="black"
+        />
+    </div>
+
+
+
+
 
     return React.createElement('form', { onSubmit: handleSubmit },
         [React.createElement('h2', { key: 'heading-parent' }, 'Parent Info')].concat(

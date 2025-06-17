@@ -6,9 +6,9 @@
 'use client'
 
 import React, { useEffect, useState, useContext } from 'react'
-import { auth, db } from '@/app/lib/firebase'
-import { onAuthStateChanged } from 'firebase/auth'
-import { doc, getDoc, collection, getDocs } from 'firebase/firestore'
+// import { auth, db } from '@/app/lib/firebase'
+// import { onAuthStateChanged } from 'firebase/auth'
+// import { doc, getDoc, collection, getDocs } from 'firebase/firestore'
 import { useRouter } from 'next/navigation'
 
 const { createElement: element } = React
@@ -24,7 +24,7 @@ export default function KidsDB() {
         // AttendanceDB,
         // attendanceIsLoading,
         parentsDB,
-        // parentsDBIsLoading,
+        parentsDBIsLoading,
         // updatePreloadedAttendance,
     } = useContext(EagleKidsPreloadContext);
 
@@ -94,6 +94,16 @@ export default function KidsDB() {
     }; // search
 
     if (!isAdmin) return null // should not be able to reach here but just in case
+
+    /* cool little loading screen */
+    if (parentsDBIsLoading) return <div className='signinkidbouncydiv'>
+        <Bouncy
+            className="kidsigninBouncy"
+            size="200"
+            speed="1.75"
+            color="black"
+        />
+    </div>
 
     return element('div', { className: 'KidsDBMainDiv' },
         [

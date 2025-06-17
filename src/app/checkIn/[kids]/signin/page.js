@@ -7,6 +7,10 @@ import React, { useEffect, useState, useContext } from 'react';
 import { doc, /*getDoc,*/ setDoc, updateDoc, collection } from "firebase/firestore"; // i no longer need to get doc here
 import { db } from '@/app/lib/firebase'; //this is no longer needed since im using context
 
+import { Bouncy } from 'ldrs/react'
+import 'ldrs/react/Bouncy.css'
+
+
 const { createElement: element } = React
 
 import { EagleKidsPreloadContext } from '@/context/EagleKidsPreload';
@@ -18,9 +22,9 @@ export default function SignInPage() {
         // userData,
         day, month, year, hour, min, currDate,
         AttendanceDB,
-        // attendanceIsLoading,
+        attendanceIsLoading,
         parentsDB,
-        // parentsDBIsLoading,
+        parentsDBIsLoading,
         updatePreloadedAttendance,
     } = useContext(EagleKidsPreloadContext);
 
@@ -180,14 +184,17 @@ export default function SignInPage() {
 
 
     /* cool little loading screen */
-    // if (isLoading) return <div className='signinkidbouncydiv'>
-    //     <Bouncy
-    //         className="kidsigninBouncy"
-    //         size="200"
-    //         speed="1.75"
-    //         color="black"
-    //     />
-    // </div>
+    if (attendanceIsLoading && parentsDBIsLoading) return <div className='signinkidbouncydiv'>
+        <Bouncy
+            className="kidsigninBouncy"
+            size="200"
+            speed="1.75"
+            color="black"
+        />
+    </div>
+
+
+
 
     return element('div', { className: "kidsigninMainDiv" },
         [
