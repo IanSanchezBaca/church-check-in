@@ -40,6 +40,8 @@ export default function AuthButton() {
             onClick: handleAuthClick,
             className: 'auth-button',
         }, user ? 'Log Out' : 'Log In'),
+
+
     ]; // elements
 
     if (!user) {
@@ -52,5 +54,5 @@ export default function AuthButton() {
         ); // push
     };// if not user
 
-    return React.createElement('div', { className: "NAVBAR" }, elements); // return
+    return React.createElement('div', { className: "NAVBAR" }, elements);
 }

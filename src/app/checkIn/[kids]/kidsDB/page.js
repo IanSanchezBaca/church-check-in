@@ -5,16 +5,32 @@
 *********************************************/
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import { auth, db } from '@/app/lib/firebase'
-import { onAuthStateChanged } from 'firebase/auth'
-import { doc, getDoc, collection, getDocs } from 'firebase/firestore'
+import { Bouncy } from 'ldrs/react'
+import 'ldrs/react/Bouncy.css'
+
+import React, { useEffect, useState, useContext } from 'react'
+// import { auth, db } from '@/app/lib/firebase'
+// import { onAuthStateChanged } from 'firebase/auth'
+// import { doc, getDoc, collection, getDocs } from 'firebase/firestore'
 import { useRouter } from 'next/navigation'
 
 const { createElement: element } = React
 
+import { EagleKidsPreloadContext } from '@/context/EagleKidsPreload';
+
+
 export default function KidsDB() {
-    const [isAdmin, setIsAdmin] = useState(false);
+    const {
+        isAdmin,
+        userData,
+        // day, month, year, hour, min, currDate,
+        // AttendanceDB,
+        // attendanceIsLoading,
+        parentsDB,
+        parentsDBIsLoading,
+        // updatePreloadedAttendance,
+    } = useContext(EagleKidsPreloadContext);
+
     const router = useRouter();
     /* this stuff is for database checking */
     // const [keyword, setKeyword] = useState("");
@@ -24,46 +40,23 @@ export default function KidsDB() {
     const [kidLastName, setKidLastName] = useState('')
     const [kidID, setKidID] = useState('')
     const [parentFirstName, setParentFirstName] = useState('')
-    const [parents, setParents] = useState([])
+    // const [parents, setParents] = useState([]); // this will probably no longer be needed in this file
 
 
 
     useEffect(() => { // check if the user isAdmin if so then load the database
-        const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            if (!user) { // first checking if they're signed in
-                router.push('/')
+        if (userData) {
+            if (!isAdmin) {
+                console.log(`${userData.name} does not have admin permission`)
                 return
             }
-
-            const userRef = doc(db, 'users', user.uid)
-            const userDoc = await getDoc(userRef)
-
-            if (userDoc.exists()) {
-                const userData = userDoc.data()
-                if (userData.isAdmin === true) {
-                    setIsAdmin(true)
-                }
-                else {
-                    router.push('/')
-                    return
-                }
-            }
-            else {
-                router.push('/')
-                return
-            }
-
-            const querySnapshot = await getDocs(collection(db, "parents"));
-            const parents = querySnapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data(),
-            }));
-
-            setParents(parents);
-
-        });
-        return () => unsubscribe();
-    }, []); // useEffect
+            console.log(`${userData.name} isAdmin ${isAdmin}`)
+        }
+        else {
+            router.push('/')
+            console.log('userData is null')
+        }
+    }, [router, isAdmin, userData]); // useEffect
 
     /* The search function */
     const search = async () => {
@@ -74,7 +67,7 @@ export default function KidsDB() {
 
         const matches = []
 
-        for (const parent of parents) {
+        for (const parent of parentsDB) {
             const parentFirst = parent.firstName?.toLowerCase() || "";
 
             if (!parent.kids) continue; // i guess this skips the iteration if not something
@@ -104,6 +97,16 @@ export default function KidsDB() {
     }; // search
 
     if (!isAdmin) return null // should not be able to reach here but just in case
+
+    /* cool little loading screen */
+    if (parentsDBIsLoading) return <div className='signinkidbouncydiv'>
+        <Bouncy
+            className="kidsigninBouncy"
+            size="200"
+            speed="1.75"
+            color="black"
+        />
+    </div>
 
     return element('div', { className: 'KidsDBMainDiv' },
         [

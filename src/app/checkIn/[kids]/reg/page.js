@@ -5,15 +5,32 @@
 'use client';
 
 import "./reg.css"
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { db } from '@/app/lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { getNextKidId } from "@/app/lib/firebaseUtils";
+import { useRouter } from 'next/navigation'
 
+import { EagleKidsPreloadContext } from '@/context/EagleKidsPreload';
 
+import { Bouncy } from 'ldrs/react'
+import 'ldrs/react/Bouncy.css'
 
 
 export default function CheckinPage() {
+
+    const {
+        // isAdmin,
+        // userData,
+        // day, month, year, hour, min, currDate,
+        // AttendanceDB,
+        // attendanceIsLoading,
+        parentsDB,
+        parentsDBIsLoading,
+        // updatePreloadedAttendance,
+    } = useContext(EagleKidsPreloadContext);
+
+
     /* State Hooks
      * parent stores first name, last name, phone, emergency contact.
      * kids is an array of kid objects (one or more). 
@@ -94,6 +111,8 @@ export default function CheckinPage() {
 
             alert('Reg complete!');
 
+            useRouter.push("/checkIn/kids");
+
             // Reset form
             setParent({ firstName: '', lastName: '', phone: '', emergency: '' });
             setKids([{ firstName: '', lastName: '', birthdate: '', allergies: '' }]);
@@ -102,6 +121,21 @@ export default function CheckinPage() {
             alert('Error saving to database.');
         }
     }; // handle submit
+
+
+    /* cool little loading screen */
+    if (parentsDBIsLoading) return <div className='signinkidbouncydiv'>
+        <Bouncy
+            className="kidsigninBouncy"
+            size="200"
+            speed="1.75"
+            color="black"
+        />
+    </div>
+
+
+
+
 
     return React.createElement('form', { onSubmit: handleSubmit },
         [React.createElement('h2', { key: 'heading-parent' }, 'Parent Info')].concat(
