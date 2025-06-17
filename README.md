@@ -1,7 +1,7 @@
 ## to do list
-- [ ] **make it so that the parents collection and the specific month-year document is loaded for signing in**
+- [x] ~~**make it so that the parents collection and the specific month-year document is loaded for signing in**~~
 
-- [ ] **currently am not checking if the kid exists before sign in signs them in so i need to implament that**
+- [x] ~~**currently am not checking if the kid exists before sign in signs them in so i need to implament that**~~
 
 - [x] ~~create the database page for admins~~
 
