@@ -27,17 +27,33 @@
 /********************************************
  * root css
 *********************************************/
-.NAVBAR {
+.RootLayoutNavbar {
+    display: flex;
+    justify-content: flex-end;
+    background-color: black;
+    /* gap: ; */
+}
+
+/* .NAVBAR {
     background-color: black;
     text-align: right;
+} */
+
+.LangSwitchBtn {
+    background-color: #00f7ff;
+    border: none;
+    padding: .5rem 1rem;
+    margin: .5rem;
 }
+
 
 .auth-button {
     background-color: #00f7ff;
     border: none;
-    margin-top: 1rem;
+    margin: .5rem;
     padding: .5rem 1rem;
 }
+
 
 .reg-Button {
     background-color: #00f7ff;
@@ -187,7 +203,7 @@
     border: 5px solid black;
     background-color: #b4f2f1;
     color: black;
-    font-size: 50px;
+    font-size: 45px;
     text-decoration: none;
     box-sizing: border-box;
 }
@@ -244,6 +260,11 @@
 
 .kidsigninBouncy {}
 
+.ksiinput {
+    width: 25vw;
+    text-align: center;
+}
+
 /* the actual elements */
 
 .kidsigninH2 {
@@ -290,12 +311,12 @@
      * @media root
     *********************************************/
     .auth-button {
-        margin-top: 0;
-        margin-right: .5rem;
+        /* margin-top: 0; */
+        /* margin-right: .5rem; */
     }
 
     .reg-Button {
-        margin-left: .5rem;
+        /* margin-left: .5rem; */
     }
 
     /********************************************
@@ -354,7 +375,7 @@
 
     .box {
         width: 100vw;
-        font-size: 34px;
+        font-size: 30px;
         min-height: 10rem;
     }
 

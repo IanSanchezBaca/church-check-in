@@ -1,0 +1,20 @@
+{
+    "SignInKidBtn": "Registrar asistencia de niño(s)",
+    "RegKidBtn": "Inscribir niño(s)",
+    "SignInKidTxt": "Registrar asistencia del niño",
+    "KidIdEx": "ID del niño (ejemplo: 00003)",
+    "ParentInfoHeader": "Información del padre",
+    "KidInfoHeader": "Información del niño(s)",
+    "FirstNameTxt": "Nombre",
+    "LastNameTxt": "Apellido",
+    "PhoneTxt": "Número de teléfono",
+    "EmergencyContactTxt": "Contacto de emergencia",
+    "BirthDateTxt": "Fecha de nacimiento",
+    "AllergiesTxt": "Alergias",
+    "AddAnotherKidBtnTxt": "Agregar otro niño",
+    "SubmitbtnTxt": "Enviar",
+    "DeleteKidBtnTxt": "Eliminar niño",
+    "language_switch_button": "Change Language to English",
+    "KidsCheckInHeader": "Registro de Niños",
+    "literarlyjustkid": "Niño"
+}

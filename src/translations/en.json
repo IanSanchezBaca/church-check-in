@@ -1,0 +1,20 @@
+{
+    "SignInKidBtn": "Sign In Kid(s)",
+    "RegKidBtn": "Register Kid(s)",
+    "SignInKidTxt": "Sign In Kid",
+    "KidIdEx": "Kid ID (example: 00003)",
+    "ParentInfoHeader": "Parent Info",
+    "KidInfoHeader": "Kid Info",
+    "FirstNameTxt": "First Name",
+    "LastNameTxt": "Last Name",
+    "PhoneTxt": "Phone Number",
+    "EmergencyContactTxt": "Emergency Contact",
+    "BirthDateTxt": "Birthdate",
+    "AllergiesTxt": "Allergies",
+    "AddAnotherKidBtnTxt": "Add Another Kid",
+    "SubmitbtnTxt": "Submit",
+    "DeleteKidBtnTxt": "Delete Kid",
+    "language_switch_button": "Cambiar Idioma A Español",
+    "KidsCheckInHeader": "Kids Check In",
+    "literarlyjustkid": "Kid"
+}

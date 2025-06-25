@@ -16,8 +16,12 @@ import { EagleKidsPreloadContext } from '@/context/EagleKidsPreload';
 import { Bouncy } from 'ldrs/react'
 import 'ldrs/react/Bouncy.css'
 
+import { useTranslation } from '@/hooks/useTranslation';
+
+
 
 export default function CheckinPage() {
+    const { t } = useTranslation();
 
     const {
         // isAdmin,
@@ -138,8 +142,9 @@ export default function CheckinPage() {
 
 
     return React.createElement('form', { onSubmit: handleSubmit },
-        [React.createElement('h2', { key: 'heading-parent' }, 'Parent Info')].concat(
-            ['firstName', 'lastName', 'phone', 'emergency'].map((field) =>
+        [React.createElement('h2', { key: 'heading-parent' }, t("ParentInfoHeader"))].concat(
+            // ['firstName', 'lastName', 'phone', 'emergency'].map((field) =>
+            [t("FirstNameTxt"), t("LastNameTxt"), t("PhoneTxt"), t("EmergencyContactTxt")].map((field) =>
                 React.createElement('input', {
                     key: `parent-${field}`,
                     placeholder: field.charAt(0).toUpperCase() + field.slice(1) + (field !== 'emergency' ? ' *' : ''),
@@ -148,11 +153,11 @@ export default function CheckinPage() {
                 })
             ),
 
-            [React.createElement('h2', { key: 'heading-kids' }, 'Kid(s) Info')],
+            [React.createElement('h2', { key: 'heading-kids' }, t("KidInfoHeader"))],
             kids.map((kid, index) =>
                 React.createElement('div', { key: `kid-${index}`, className: 'kidDiv' }, [
-                    React.createElement('p', { key: `label-${index}` }, `Kid #${index + 1}`),
-                    ...['firstName', 'lastName', 'birthdate', 'allergies'].map(field =>
+                    React.createElement('p', { key: `label-${index}` }, `${t("literarlyjustkid")} #${index + 1}`),
+                    ...[t("FirstNameTxt"), t("LastNameTxt"), t("BirthDateTxt"), t("AllergiesTxt")].map(field =>
                         React.createElement('input', {
                             key: `kid-${index}-${field}`,
                             placeholder: field.charAt(0).toUpperCase() + field.slice(1) + (field !== 'allergies' ? ' *' : ''),
@@ -171,7 +176,7 @@ export default function CheckinPage() {
                                 setKids(updatedKids);
                             },
                             className: 'delete-button'
-                        }, 'Delete Kid')
+                        }, t("DeleteKidBtnTxt"))
                     ])
                 ])
             ),
@@ -182,7 +187,7 @@ export default function CheckinPage() {
                     key: 'add-kid',
                     onClick: addAnotherKid,
                     className: 'kidAddBtn',
-                }, 'Add Another Kid'),
+                }, t("AddAnotherKidBtnTxt")),
 
                 React.createElement(
                     'div',
@@ -195,7 +200,7 @@ export default function CheckinPage() {
                             type: 'submit',
                             key: 'submit',
                             className: 'submitButton'
-                        }, 'Submit')
+                        }, t("SubmitbtnTxt"))
                     ]
                 )
             ]

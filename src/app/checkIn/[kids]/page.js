@@ -12,8 +12,13 @@ import AdminButton from "@/app/lib/adminButton";
 
 import { EagleKidsPreloadContext } from '@/context/EagleKidsPreload';
 
+import { useTranslation } from '@/hooks/useTranslation';
+
+
 
 export default function Chick() {
+    const { t } = useTranslation();
+
     const {
         // isAdmin,
         // userData,
@@ -39,17 +44,24 @@ export default function Chick() {
     return (
         <div>
             <div>
-                <h1 className="kidschickenh1">Kids Check In</h1>
+                <h1 className="kidschickenh1">
+                    {/* Kids Check In */}
+                    {t('KidsCheckInHeader')}
+                </h1>
             </div>
             <div className="row">
                 <Link href="/checkIn/kids/signin" className="box">
                     <div>
-                        <p>Sign In Kid(s)</p>
+                        <p>
+                            {t('SignInKidBtn')}
+                            {/* Sign In Kid(s) */}
+                        </p>
                     </div>
                 </Link>
                 <Link href="/checkIn/kids/reg" className="box">
                     <div>
-                        <p>Register Kid(s)</p>
+                        {t('RegKidBtn')}
+                        {/* <p>Register Kid(s)</p> */}
                     </div>
                 </Link>
             </div>

@@ -14,6 +14,7 @@ import 'ldrs/react/Bouncy.css'
 const { createElement: element } = React
 
 import { EagleKidsPreloadContext } from '@/context/EagleKidsPreload';
+import { useTranslation } from '@/hooks/useTranslation';
 
 
 export default function SignInPage() {
@@ -27,6 +28,8 @@ export default function SignInPage() {
         parentsDBIsLoading,
         updatePreloadedAttendance,
     } = useContext(EagleKidsPreloadContext);
+
+    const { t } = useTranslation();
 
     const [KID, setID] = useState(""); // this is for the kid sign in
     let kidname = "";
@@ -198,7 +201,11 @@ export default function SignInPage() {
 
     return element('div', { className: "kidsigninMainDiv" },
         [
-            element('p', { key: "kidsigninH2", className: "kidsigninH2" }, "Sign In Kid"), // heading 2
+            element('p',
+                { key: "kidsigninH2", className: "kidsigninH2" },
+                // "Sign In Kid"
+                t('SignInKidTxt')
+            ), // heading 2
 
             element('p',
                 {
@@ -214,7 +221,8 @@ export default function SignInPage() {
                 element('input', {
                     key: "ksiinputkey",
                     className: "ksiinput",
-                    placeholder: "Kid ID (example: 00003)",
+                    // placeholder: "Kid ID (example: 00003)",
+                    placeholder: t('KidIdEx'),
                     value: KID,
                     onChange: (e) => setID(e.target.value),
                 }), // input
