@@ -80,7 +80,11 @@ export default function SignInPage() {
 
                 // check if the kid is already signed in
                 if (kidAttendance && kidAttendance[period]) {
-                    alert(`${kidname} is already signed in for ${period} classes.`);
+                    alert(
+                        t("kidalreadysignedinalert")
+                            .replace("{kid}", kidname)
+                            .replace("{period}", period)
+                    );
                     setID('');
                     return;
                 }
@@ -100,7 +104,11 @@ export default function SignInPage() {
                     }
                 );
 
-                alert(`${kidname} is checked in for ${period} class.`);
+                alert(
+                    t("kidcheckedin")
+                        .replace("{kidname}", kidname)
+                        .replace("{period}", period)
+                );
 
                 updatePreloadedAttendance(prevData => {
                     // IMPORTANT: Create a deep copy to avoid direct mutation of state objects
@@ -134,7 +142,11 @@ export default function SignInPage() {
                 // **DATABASE WRITE: setDoc()**
                 // Create a new document in Firestore.
                 await setDoc(attendanceDocRef, newDocData);
-                alert(`${kidname} is checked in for ${period}.`);
+                alert(
+                    t("kidcheckedin")
+                        .replace("{kidname}", kidname)
+                        .replace("{period}", period)
+                );
 
                 // OPTIONAL: Update local preloaded state to reflect the newly created document.
                 updatePreloadedAttendance(newDocData);
@@ -149,13 +161,13 @@ export default function SignInPage() {
     } // signin
 
     const doesKidExists = async () => {
-        const t = KID.trim(); // remove whitespace from ends of text
-        if (!t) { // make sure the user types something in
-            alert("Please type your kid's ID to sign them in.");
+        const i = KID.trim(); // remove whitespace from ends of text
+        if (!i) { // make sure the user types something in
+            alert(t("emptyidalert"));
             return;
         }
 
-        ID = padStringManually(t).trim();
+        ID = padStringManually(i).trim();
 
         let kidExists = false;
         // let kidName = "";
@@ -179,7 +191,7 @@ export default function SignInPage() {
             signin();
         }
         else {
-            alert(`${ID} is not found. Please register first and ask staff for ID.`);
+            alert(`${ID} ${t('idnotfoundalert')}`);
             setID("");
         }
 

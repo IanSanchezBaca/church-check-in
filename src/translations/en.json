@@ -16,5 +16,10 @@
     "DeleteKidBtnTxt": "Delete Kid",
     "language_switch_button": "Cambiar Idioma A Español",
     "KidsCheckInHeader": "Kids Check In",
-    "literarlyjustkid": "Kid"
+    "literarlyjustkid": "Kid",
+    "idnotfoundalert": "was not found. Please register first and ask staff for ID.",
+    "kidalreadysignedinalert": "{kid} is already signed in for {period} classes.",
+    "kidcheckedin": "{kidname} is checked in for {period} class.",
+    "emptyidalert": "Please type your kid's ID to sign them in."
+
 }

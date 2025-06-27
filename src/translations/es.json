@@ -16,5 +16,10 @@
     "DeleteKidBtnTxt": "Eliminar niño",
     "language_switch_button": "Change Language to English",
     "KidsCheckInHeader": "Registro de Niños",
-    "literarlyjustkid": "Niño"
+    "literarlyjustkid": "Niño",
+    "idnotfoundalert": "no se encontró. Por favor regístrese primero y solicite el ID al personal.",
+    "kidalreadysignedinalert": "{kid} ya está registrado para las clases de {period}.",
+    "kidcheckedin": "{kidname} está registrado para la clase de {period}",
+    "emptyidalert": "Por favor, ingrese el ID de su niño para registrarlo."
+
 }

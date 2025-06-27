@@ -1,14 +1,7 @@
 ## to do list
-- [x] ~~**make it so that the parents collection and the specific month-year document is loaded for signing in**~~
+- [ ] fix the birthdate input for registration
 
-- [x] ~~**currently am not checking if the kid exists before sign in signs them in so i need to implament that**~~
-
-- [x] ~~create the database page for admins~~
-
-- [x] ~~create the sign in page for parents~~
-    - [x] ~~also make it show up in the database page that theyre present for the class (morning/afternoon)~~
-
-- [x] ~~fix the css for register as it breaks when you press register from the checkIn/kids page~~
+- [ ] Now that the parents db is loaded we can finally check if the kid exists so that we dont create duplicates
 
 - [ ] make a checkbox to allow the password to be visible when typing password in login
 
