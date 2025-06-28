@@ -4,7 +4,7 @@
 //// This tells Next.js that the component runs in the browser and can use state, events, etc.
 'use client';
 
-import "../../../globals.css"
+import "../../../globals.css";
 import React, { useState, useContext } from 'react';
 import { db } from '@/app/lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
@@ -20,20 +20,19 @@ import { useTranslation } from '@/hooks/useTranslation';
 
 
 
-export default function CheckinPage() {
+export default function RegisterPage() {
     const { t } = useTranslation(); // used for translations
 
     const {
-        // isAdmin,
-        // userData,
-        // day, month, year, hour, min, currDate,
-        // AttendanceDB,
-        // attendanceIsLoading,
         parentsDB,
         parentsDBIsLoading,
-        // updatePreloadedAttendance,
     } = useContext(EagleKidsPreloadContext);
 
+    /* parent info */
+    const [pFirstname, setpfn] = useState("");
+    const [pLastname, setpln] = useState("");
+    const [pPhone, setP] = useState("");
+    const [emergency, setE] = useState("");
 
     /* State Hooks
      * parent stores first name, last name, phone, emergency contact.
@@ -63,15 +62,15 @@ export default function CheckinPage() {
      * addAnotherKid()
      ** Adds an empty new kid object to the kids array.
     **/
-    const handleParentChange = (field, value) => {
-        setParent({ ...parent, [field]: value });
-    };
+    // const handleParentChange = (field, value) => {
+    //     setParent({ ...parent, [field]: value });
+    // };
 
-    const handleKidChange = (index, field, value) => {
-        const newKids = [...kids];
-        newKids[index][field] = value;
-        setKids(newKids);
-    };
+    // const handleKidChange = (index, field, value) => {
+    //     const newKids = [...kids];
+    //     newKids[index][field] = value;
+    //     setKids(newKids);
+    // };
 
     const addAnotherKid = () => {
         setKids([...kids, { firstName: '', lastName: '', birthdate: '', allergies: '' }]);
@@ -131,20 +130,27 @@ export default function CheckinPage() {
                     {t("ParentInfoHeader")}
                 </h2>
 
-                {/* inputs */}
-                <div>
+                {/* Parent inputs */}
+                <div>{/* first name */}
                     <p className="parentRegP">{t("FirstNameTxt")} *</p>
-                    <input type="text" required />
+                    <input
+                        type="text"
+                        required
+                        onChange={(e) => setpfn(e.target.value.trim())}
+                    />
                 </div>
 
-                <div>
+                <div>{/* last name */}
                     <p className="parentRegP">{t("LastNameTxt")} *</p>
-                    <input type="text" required />
+                    <input
+                        type="text"
+                        required
+                        onChange={(e) => setpln(e.target.value.trim())}
+                    />
                 </div>
-
 
                 {/* Phone numbers will work differently */}
-                <div>
+                <div>{/*  phone Number */}
                     <p className="parentRegP">{t("PhoneTxt")} *</p>
                     <input
                         type="tel"
@@ -152,16 +158,17 @@ export default function CheckinPage() {
                         placeholder="1234567890"
                         required
                         style={{ textAlign: "center" }}
+                        onChange={(e) => setP(e.target.value.trim())}
                     />
 
                 </div>
 
-                <div>
+                <div> {/* emergency contact */}
                     <p className="parentRegP">{t("EmergencyContactTxt")}</p>
                     <input
                         type="tel"
                         pattern="[0-9]{10}"
-                    // placeholder={t("EmergencyContactTxt")}
+                        onChange={(e) => setE(e.target.value.trim())}
                     />
                 </div>
 
@@ -257,77 +264,72 @@ export default function CheckinPage() {
             </form>
         </div >
     )
-
-
-
-
-
-    // return React.createElement('form', { onSubmit: handleSubmit },
-    //     [React.createElement('h2', { key: 'heading-parent' }, t("ParentInfoHeader"))].concat(
-    //         // ['firstName', 'lastName', 'phone', 'emergency'].map((field) =>
-    //         [t("FirstNameTxt"), t("LastNameTxt"), t("PhoneTxt"), t("EmergencyContactTxt")].map((field) =>
-    //             React.createElement('input', {
-    //                 key: `parent-${field}`,
-    //                 placeholder: field.charAt(0).toUpperCase() + field.slice(1) + (field !== 'emergency' ? ' *' : ''),
-    //                 value: parent[field],
-    //                 onChange: e => handleParentChange(field, e.target.value)
-    //             })
-    //         ),
-
-    //         [React.createElement('h2', { key: 'heading-kids' }, t("KidInfoHeader"))],
-    //         kids.map((kid, index) =>
-    //             React.createElement('div', { key: `kid-${index}`, className: 'kidDiv' }, [
-    //                 React.createElement('p', { key: `label-${index}` }, `${t("literarlyjustkid")} #${index + 1}`),
-    //                 ...[t("FirstNameTxt"), t("LastNameTxt"), t("BirthDateTxt"), t("AllergiesTxt")].map(field =>
-    //                     React.createElement('input', {
-    //                         key: `kid-${index}-${field}`,
-    //                         placeholder: field.charAt(0).toUpperCase() + field.slice(1) + (field !== 'allergies' ? ' *' : ''),
-    //                         value: kid[field],
-    //                         onChange: e => handleKidChange(index, field, e.target.value)
-    //                     })
-    //                 ),
-    //                 index > 0 && /* adds a delete button for kid 2 and greater */
-    //                 React.createElement('div', { className: 'delete-button-container', key: `delete-wrap-${index}` }, [
-    //                     React.createElement('button', {
-    //                         key: `delete-${index}`,
-    //                         type: 'button',
-    //                         onClick: () => {
-    //                             const updatedKids = [...kids];
-    //                             updatedKids.splice(index, 1);
-    //                             setKids(updatedKids);
-    //                         },
-    //                         className: 'delete-button'
-    //                     }, t("DeleteKidBtnTxt"))
-    //                 ])
-    //             ])
-    //         ),
-
-    //         [
-    //             React.createElement('button', {
-    //                 type: 'button',
-    //                 key: 'add-kid',
-    //                 onClick: addAnotherKid,
-    //                 className: 'kidAddBtn',
-    //             }, t("AddAnotherKidBtnTxt")),
-
-    //             React.createElement(
-    //                 'div',
-    //                 {
-    //                     key: `submit-button-container`,
-    //                     className: 'submitButtonContainer'
-    //                 },
-    //                 [
-    //                     React.createElement('button', {
-    //                         type: 'submit',
-    //                         key: 'submit',
-    //                         className: 'submitButton'
-    //                     }, t("SubmitbtnTxt"))
-    //                 ]
-    //             )
-    //         ]
-    //     )
-    // ); // return
 } // checkinpage
 
 
 
+// return React.createElement('form', { onSubmit: handleSubmit },
+//     [React.createElement('h2', { key: 'heading-parent' }, t("ParentInfoHeader"))].concat(
+//         // ['firstName', 'lastName', 'phone', 'emergency'].map((field) =>
+//         [t("FirstNameTxt"), t("LastNameTxt"), t("PhoneTxt"), t("EmergencyContactTxt")].map((field) =>
+//             React.createElement('input', {
+//                 key: `parent-${field}`,
+//                 placeholder: field.charAt(0).toUpperCase() + field.slice(1) + (field !== 'emergency' ? ' *' : ''),
+//                 value: parent[field],
+//                 onChange: e => handleParentChange(field, e.target.value)
+//             })
+//         ),
+
+//         [React.createElement('h2', { key: 'heading-kids' }, t("KidInfoHeader"))],
+//         kids.map((kid, index) =>
+//             React.createElement('div', { key: `kid-${index}`, className: 'kidDiv' }, [
+//                 React.createElement('p', { key: `label-${index}` }, `${t("literarlyjustkid")} #${index + 1}`),
+//                 ...[t("FirstNameTxt"), t("LastNameTxt"), t("BirthDateTxt"), t("AllergiesTxt")].map(field =>
+//                     React.createElement('input', {
+//                         key: `kid-${index}-${field}`,
+//                         placeholder: field.charAt(0).toUpperCase() + field.slice(1) + (field !== 'allergies' ? ' *' : ''),
+//                         value: kid[field],
+//                         onChange: e => handleKidChange(index, field, e.target.value)
+//                     })
+//                 ),
+//                 index > 0 && /* adds a delete button for kid 2 and greater */
+//                 React.createElement('div', { className: 'delete-button-container', key: `delete-wrap-${index}` }, [
+//                     React.createElement('button', {
+//                         key: `delete-${index}`,
+//                         type: 'button',
+//                         onClick: () => {
+//                             const updatedKids = [...kids];
+//                             updatedKids.splice(index, 1);
+//                             setKids(updatedKids);
+//                         },
+//                         className: 'delete-button'
+//                     }, t("DeleteKidBtnTxt"))
+//                 ])
+//             ])
+//         ),
+
+//         [
+//             React.createElement('button', {
+//                 type: 'button',
+//                 key: 'add-kid',
+//                 onClick: addAnotherKid,
+//                 className: 'kidAddBtn',
+//             }, t("AddAnotherKidBtnTxt")),
+
+//             React.createElement(
+//                 'div',
+//                 {
+//                     key: `submit-button-container`,
+//                     className: 'submitButtonContainer'
+//                 },
+//                 [
+//                     React.createElement('button', {
+//                         type: 'submit',
+//                         key: 'submit',
+//                         className: 'submitButton'
+//                     }, t("SubmitbtnTxt"))
+//                 ]
+//             )
+//         ]
+//     )
+// ); // return
