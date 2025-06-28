@@ -28,6 +28,8 @@ export default function RegisterPage() {
         parentsDBIsLoading,
     } = useContext(EagleKidsPreloadContext);
 
+
+
     /* parent info */
     const [pFirstname, setpfn] = useState("");
     const [pLastname, setpln] = useState("");
@@ -38,19 +40,21 @@ export default function RegisterPage() {
      * parent stores first name, last name, phone, emergency contact.
      * kids is an array of kid objects (one or more). 
     **/
-    const [parent, setParent] = useState({
-        firstName: '',
-        lastName: '',
-        phone: '',
-        emergency: ''
-    });
+    // const [parent, setParent] = useState({
+    //     firstName: "",
+    //     lastName: "",
+    //     phone: "",
+    //     emergency: ""
+    // });
 
-    const [kids, setKids] = useState([{
-        firstName: '',
-        lastName: '',
-        birthdate: '',
-        allergies: ''
-    }]);
+    const [kids, setKids] = useState([
+        {
+            firstName: "",
+            lastName: "",
+            birthdate: "",
+            allergies: ""
+        }
+    ]);
 
     /* Event Handlers
      * handleParentChange(field, value)
@@ -66,11 +70,11 @@ export default function RegisterPage() {
     //     setParent({ ...parent, [field]: value });
     // };
 
-    // const handleKidChange = (index, field, value) => {
-    //     const newKids = [...kids];
-    //     newKids[index][field] = value;
-    //     setKids(newKids);
-    // };
+    const handleKidChange = (index, field, value) => {
+        const newKids = [...kids];
+        newKids[index][field] = value;
+        setKids(newKids);
+    };
 
     const addAnotherKid = () => {
         setKids([...kids, { firstName: '', lastName: '', birthdate: '', allergies: '' }]);
@@ -81,34 +85,47 @@ export default function RegisterPage() {
          * from my understanding this makes it so that they cant submit a blank form
         */
 
-        // Add kid IDs
-        const kidsWithId = await Promise.all(
-            kids.map(async (kid) => ({
-                ...kid,
-                id: await getNextKidId()
-            }
-            ))
-        );
+        e.preventDefault(); // this makes it so that the page doesnt refresh and clear the inputs
 
-        /*Saves the parent and all kids together into Firestore as one document*/
-        try {
-            const parentRef = await addDoc(collection(db, 'parents'), {
-                ...parent,
-                kids: kidsWithId,
-                createdAt: new Date().toISOString()
-            });
+        // kids.forEach((kid, index) => {
+        //     // alert(`Kid #${index + 1};`, kid);
+        //     console.log(`Kid #${index + 1};`, kid)
+        // })
 
-            alert('Reg complete!');
+        console.log("Prepare: \n", parentsDB)
 
-            useRouter.push("/checkIn/kids");
+        // return
 
-            // Reset form
-            setParent({ firstName: '', lastName: '', phone: '', emergency: '' });
-            setKids([{ firstName: '', lastName: '', birthdate: '', allergies: '' }]);
-        } catch (err) {
-            console.error(err);
-            alert('Error saving to database.');
-        }
+
+
+        // // Add kid IDs
+        // const kidsWithId = await Promise.all(
+        //     kids.map(async (kid) => ({
+        //         ...kid,
+        //         id: await getNextKidId()
+        //     }
+        //     ))
+        // );
+
+        // /*Saves the parent and all kids together into Firestore as one document*/
+        // try {
+        //     const parentRef = await addDoc(collection(db, 'parents'), {
+        //         ...parent,
+        //         kids: kidsWithId,
+        //         createdAt: new Date().toISOString()
+        //     });
+
+        //     alert('Reg complete!');
+
+        //     useRouter.push("/checkIn/kids");
+
+        //     // Reset form
+        //     setParent({ firstName: '', lastName: '', phone: '', emergency: '' });
+        //     setKids([{ firstName: '', lastName: '', birthdate: '', allergies: '' }]);
+        // } catch (err) {
+        //     console.error(err);
+        //     alert('Error saving to database.');
+        // }
     }; // handle submit
 
 
@@ -166,9 +183,11 @@ export default function RegisterPage() {
                 <div> {/* emergency contact */}
                     <p className="parentRegP">{t("EmergencyContactTxt")}</p>
                     <input
+                        style={{ textAlign: "center" }}
                         type="tel"
                         pattern="[0-9]{10}"
                         onChange={(e) => setE(e.target.value.trim())}
+                        placeholder="0123456789"
                     />
                 </div>
 
@@ -177,20 +196,34 @@ export default function RegisterPage() {
 
                 {kids.map((kid, index) => (
                     <div key={`kid-${index}`} className="parentRegKidInfo">
+                        {/* Header */}
                         <h2 key={`label-${index}`} className="parentRegKidNum">
                             {`${t("literarlyjustkid")} #${index + 1}`}
                         </h2>
 
+                        {/* Kid Firstname */}
                         <div>
                             <p className="parentRegP">{t("FirstNameTxt")} *</p>
-                            <input type="text" required />
+                            <input
+                                type="text"
+                                required
+                                value={kid.firstName}
+                                onChange={(e) => handleKidChange(index, "firstName", e.target.value.trim())}
+                            />
                         </div>
 
+                        {/* Kid LastName */}
                         <div>
                             <p className="parentRegP">{t("LastNameTxt")} *</p>
-                            <input type="text" required />
+                            <input
+                                type="text"
+                                required
+                                value={kid.lastName}
+                                onChange={(e) => handleKidChange(index, "lastName", e.target.value.trim())}
+                            />
                         </div>
 
+                        {/* kid birthdate */}
                         <div>
                             <p className="parentRegP">{t("BirthDateTxt")} *</p>
                             {/* month */}
@@ -200,6 +233,14 @@ export default function RegisterPage() {
                                 pattern="[0-9]{2}"
                                 placeholder="09"
                                 required
+
+                                value={kid.birthdate.split("/")[0] || ""} // not really sure what its doing here
+                                onChange={(e) => {
+                                    const val = e.target.value.trim();
+                                    const parts = kid.birthdate.split("/");
+                                    const updated = [val, parts[1] || "", parts[2] || ""];
+                                    handleKidChange(index, "birthdate", updated.join("/"));
+                                }}
                             />
                             {/* day */}
                             <input
@@ -208,6 +249,14 @@ export default function RegisterPage() {
                                 pattern="[0-9]{2}"
                                 placeholder="23"
                                 required
+
+                                value={kid.birthdate.split("/")[1] || ""}
+                                onChange={(e) => {
+                                    const val = e.target.value.trim();
+                                    const parts = kid.birthdate.split("/");
+                                    const updated = [parts[0] || "", val, parts[2] || ""];
+                                    handleKidChange(index, "birthdate", updated.join("/"));
+                                }}
                             />
                             {/* day */}
                             <input
@@ -216,12 +265,25 @@ export default function RegisterPage() {
                                 pattern="[0-9]{4}"
                                 placeholder="2001"
                                 required
+
+                                value={kid.birthdate.split("/")[2] || ""}
+                                onChange={(e) => {
+                                    const val = e.target.value.trim();
+                                    const parts = kid.birthdate.split("/");
+                                    const updated = [parts[0] || "", parts[1] || "", val];
+                                    handleKidChange(index, "birthdate", updated.join("/"));
+                                }}
                             />
                         </div>
 
+                        {/* Kid Allergies */}
                         <div>
                             <p className="parentRegP">{t("AllergiesTxt")}</p>
-                            <input type="text" key="" />
+                            <input
+                                type="text"
+                                value={kid.allergies}
+                                onChange={(e) => handleKidChange(index, "allergies", e.target.value.trim())}
+                            />
                         </div>
 
                         {/* This is the delete button code that should be popping up */}
