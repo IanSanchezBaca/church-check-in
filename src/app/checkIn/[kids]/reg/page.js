@@ -23,6 +23,8 @@ import { useTranslation } from '@/hooks/useTranslation';
 export default function RegisterPage() {
     const { t } = useTranslation(); // used for translations
 
+    const router = useRouter();
+
     const {
         parentsDB,
         parentsDBIsLoading,
@@ -160,7 +162,7 @@ export default function RegisterPage() {
 
                 alert(t("regComplete"))
 
-                useRouter().push("/checkIn/kids") // comment this back in after testing
+                router.push("/checkIn/kids") // comment this back in after testing
 
             } catch (err) {
                 console.error("Error saving to Firestore: ", err);
