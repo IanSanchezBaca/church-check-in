@@ -148,9 +148,10 @@ export const EagleKidsPreloadProvider = ({ children }) => {
 
             try {
                 const q = query(parentsCollectionRef);
-                const parents = [];
+
 
                 onSnapshot(q, (querySnapshot) => {
+                    const parents = [];
                     // this makes it so that admins no longer need to reload
                     querySnapshot.forEach((doc) => {
                         parents.push({
@@ -159,9 +160,8 @@ export const EagleKidsPreloadProvider = ({ children }) => {
                         });
                     });
 
+                    setParentsDB(parents);
                 });
-
-                setParentsDB(parents);
 
                 console.log("EagleKidsPreload: ParentsDB loaded")
             }

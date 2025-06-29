@@ -7,7 +7,7 @@
 import "../../../globals.css";
 import React, { useState, useContext } from 'react';
 import { db } from '@/app/lib/firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, arrayUnion, doc } from 'firebase/firestore';
 import { getNextKidId } from "@/app/lib/firebaseUtils";
 import { useRouter } from 'next/navigation'
 
@@ -28,25 +28,13 @@ export default function RegisterPage() {
         parentsDBIsLoading,
     } = useContext(EagleKidsPreloadContext);
 
-
-
     /* parent info */
     const [pFirstname, setpfn] = useState("");
     const [pLastname, setpln] = useState("");
     const [pPhone, setP] = useState("");
     const [emergency, setE] = useState("");
 
-    /* State Hooks
-     * parent stores first name, last name, phone, emergency contact.
-     * kids is an array of kid objects (one or more). 
-    **/
-    // const [parent, setParent] = useState({
-    //     firstName: "",
-    //     lastName: "",
-    //     phone: "",
-    //     emergency: ""
-    // });
-
+    /* kid(s) info */
     const [kids, setKids] = useState([
         {
             firstName: "",
@@ -56,76 +44,132 @@ export default function RegisterPage() {
         }
     ]);
 
-    /* Event Handlers
-     * handleParentChange(field, value)
-     ** Updates the parent state when an input is typed in.
-
-     * handleKidChange(index, field, value)
-     ** Updates a specific kid's info at a given position in the list.
-
-     * addAnotherKid()
-     ** Adds an empty new kid object to the kids array.
-    **/
-    // const handleParentChange = (field, value) => {
-    //     setParent({ ...parent, [field]: value });
-    // };
-
+    /* This updates when ever something is typed into the input fields for the kids */
     const handleKidChange = (index, field, value) => {
         const newKids = [...kids];
         newKids[index][field] = value;
         setKids(newKids);
     };
 
+    /* This adds another set of input fields for more kids */
     const addAnotherKid = () => {
         setKids([...kids, { firstName: '', lastName: '', birthdate: '', allergies: '' }]);
     };
 
+    /* list to add new children to parent */
+    // const [pendingKids, setPendingKids] = useState([]);
+
+
     const handleSubmit = async (e) => {
-        /*Prevents default form submission
-         * from my understanding this makes it so that they cant submit a blank form
-        */
+        // comment this out after testing
+        // e.preventDefault(); // this makes it so that the page doesnt refresh and clear the inputs
 
-        e.preventDefault(); // this makes it so that the page doesnt refresh and clear the inputs
+        /* cleaning up the data */
+        const cleanedKids = kids.map(kid => ({
+            ...kid,
+            firstName: kid.firstName.trim(),
+            lastName: kid.lastName.trim(),
+            birthdate: kid.birthdate.trim(),
+            allergies: kid.allergies.trim(),
+        }));
+        const cleanedParent = {
+            firstName: pFirstname.trim(),
+            lastName: pLastname.trim(),
+            phone: pPhone.trim(),
+            emergency: emergency.trim(),
+        };
 
-        // kids.forEach((kid, index) => {
-        //     // alert(`Kid #${index + 1};`, kid);
-        //     console.log(`Kid #${index + 1};`, kid)
-        // })
-
-        console.log("Prepare: \n", parentsDB)
-
-        // return
 
 
+        {/* Checking if the parent exists using the phone number */ }
+        const parentExists = parentsDB.some(
+            (parent) => parent.phone.trim() === cleanedParent.phone
+        );
 
-        // // Add kid IDs
-        // const kidsWithId = await Promise.all(
-        //     kids.map(async (kid) => ({
-        //         ...kid,
-        //         id: await getNextKidId()
-        //     }
-        //     ))
-        // );
+        {/* If the parent exists check if there are any new kids */ }
+        if (parentExists) {
 
-        // /*Saves the parent and all kids together into Firestore as one document*/
-        // try {
-        //     const parentRef = await addDoc(collection(db, 'parents'), {
-        //         ...parent,
-        //         kids: kidsWithId,
-        //         createdAt: new Date().toISOString()
-        //     });
+            const existingParent = parentsDB.find(
+                (p) => p.phone.trim() === cleanedParent.phone
+            );
 
-        //     alert('Reg complete!');
+            if (!existingParent) {
+                console.error("For whatever reason the parent was found but still has error?")
+                alert("For whatever reason the parent was found but still has error?")
+                return
+            }
 
-        //     useRouter.push("/checkIn/kids");
+            const newKidsToAttach = cleanedKids.filter((kid) =>
+                !parentsDB.some((parent) =>
+                    parent.kids?.some?.((existingKid) =>
+                        existingKid.firstName.trim().toLowerCase() === kid.firstName.toLowerCase() &&
+                        existingKid.lastName.trim().toLowerCase() === kid.lastName.toLowerCase() &&
+                        existingKid.birthdate.trim() === kid.birthdate
+                    )
+                )
+            );
 
-        //     // Reset form
-        //     setParent({ firstName: '', lastName: '', phone: '', emergency: '' });
-        //     setKids([{ firstName: '', lastName: '', birthdate: '', allergies: '' }]);
-        // } catch (err) {
-        //     console.error(err);
-        //     alert('Error saving to database.');
-        // }
+            try {
+                if (newKidsToAttach.length > 0) {
+                    // setPendingKids((prev) => [...prev, ...newKidsToAttach]);
+
+                    const kidsWithId = await Promise.all(
+                        newKidsToAttach.map(async kid => ({
+                            ...kid,
+                            id: await getNextKidId()
+                        }))
+                    );
+
+                    const parentRef = doc(db, "parents", existingParent.id);
+
+                    await updateDoc(parentRef,
+                        {
+                            kids: arrayUnion(...kidsWithId)
+                        }
+                    );
+
+                    alert(`New kid(s) added under parent ${existingParent.firstName}`);
+
+                }
+                else {
+                    alert(t("parentExistsError") + "\n" + t("kidExistsError"));
+                    return;
+                }
+            } catch (err) {
+                console.error(err)
+            }
+
+            // alert(`A new kid was added to the data base under ${cleanedParent.firstName}`)
+
+        }
+        else {
+            {/* it should only get in here if there is a completely new parent and kid(s) */ }
+            try {
+                const kidsWithId = await Promise.all(
+                    cleanedKids.map(async (kid) => ({
+                        ...kid,
+                        id: await getNextKidId()
+                    }))
+                );
+
+                const parentRef = await addDoc(collection(db, 'parents'), {
+                    ...cleanedParent,
+                    kids: kidsWithId,
+                    createdAt: new Date().toISOString()
+                });
+
+                alert(t("regComplete"))
+
+                useRouter().push("/checkIn/kids") // comment this back in after testing
+
+            } catch (err) {
+                console.error("Error saving to Firestore: ", err);
+                alert("Error saving to database");
+            }
+
+
+        }
+
     }; // handle submit
 
 
@@ -143,7 +187,7 @@ export default function RegisterPage() {
         <div className="parentRegMainDiv">
             <form onSubmit={handleSubmit} className="parentRegMainForm">
                 {/* Parent info */}
-                <h2 className="parentInfoHeader, parentRegH2">
+                <h2 className="parentInfoHeader parentRegH2">
                     {t("ParentInfoHeader")}
                 </h2>
 
@@ -151,18 +195,20 @@ export default function RegisterPage() {
                 <div>{/* first name */}
                     <p className="parentRegP">{t("FirstNameTxt")} *</p>
                     <input
+                        className="parentRegInput"
                         type="text"
                         required
-                        onChange={(e) => setpfn(e.target.value.trim())}
+                        onChange={(e) => setpfn(e.target.value)}
                     />
                 </div>
 
                 <div>{/* last name */}
                     <p className="parentRegP">{t("LastNameTxt")} *</p>
                     <input
+                        className="parentRegInput"
                         type="text"
                         required
-                        onChange={(e) => setpln(e.target.value.trim())}
+                        onChange={(e) => setpln(e.target.value)}
                     />
                 </div>
 
@@ -170,12 +216,13 @@ export default function RegisterPage() {
                 <div>{/*  phone Number */}
                     <p className="parentRegP">{t("PhoneTxt")} *</p>
                     <input
+                        className="parentRegInput"
                         type="tel"
                         pattern="[0-9]{10}"
                         placeholder="1234567890"
                         required
                         style={{ textAlign: "center" }}
-                        onChange={(e) => setP(e.target.value.trim())}
+                        onChange={(e) => setP(e.target.value)}
                     />
 
                 </div>
@@ -183,16 +230,17 @@ export default function RegisterPage() {
                 <div> {/* emergency contact */}
                     <p className="parentRegP">{t("EmergencyContactTxt")}</p>
                     <input
+                        className="parentRegInput"
                         style={{ textAlign: "center" }}
                         type="tel"
                         pattern="[0-9]{10}"
-                        onChange={(e) => setE(e.target.value.trim())}
+                        onChange={(e) => setE(e.target.value)}
                         placeholder="0123456789"
                     />
                 </div>
 
                 {/* kid info */}
-                <h2 className="kidInfoHeader, parentRegH2">{t("KidInfoHeader")}</h2>
+                <h2 className="kidInfoHeader parentRegH2">{t("KidInfoHeader")}</h2>
 
                 {kids.map((kid, index) => (
                     <div key={`kid-${index}`} className="parentRegKidInfo">
@@ -205,10 +253,11 @@ export default function RegisterPage() {
                         <div>
                             <p className="parentRegP">{t("FirstNameTxt")} *</p>
                             <input
+                                className="parentRegInput"
                                 type="text"
                                 required
                                 value={kid.firstName}
-                                onChange={(e) => handleKidChange(index, "firstName", e.target.value.trim())}
+                                onChange={(e) => handleKidChange(index, "firstName", e.target.value)}
                             />
                         </div>
 
@@ -216,10 +265,13 @@ export default function RegisterPage() {
                         <div>
                             <p className="parentRegP">{t("LastNameTxt")} *</p>
                             <input
+                                className="parentRegInput"
                                 type="text"
                                 required
                                 value={kid.lastName}
-                                onChange={(e) => handleKidChange(index, "lastName", e.target.value.trim())}
+                                onChange={
+                                    (e) => handleKidChange(index, "lastName", e.target.value)
+                                }
                             />
                         </div>
 
@@ -258,7 +310,7 @@ export default function RegisterPage() {
                                     handleKidChange(index, "birthdate", updated.join("/"));
                                 }}
                             />
-                            {/* day */}
+                            {/* year */}
                             <input
                                 className="birthdateInput"
                                 type="text"
@@ -280,9 +332,10 @@ export default function RegisterPage() {
                         <div>
                             <p className="parentRegP">{t("AllergiesTxt")}</p>
                             <input
+                                className="parentRegInput"
                                 type="text"
                                 value={kid.allergies}
-                                onChange={(e) => handleKidChange(index, "allergies", e.target.value.trim())}
+                                onChange={(e) => handleKidChange(index, "allergies", e.target.value)}
                             />
                         </div>
 
@@ -325,73 +378,5 @@ export default function RegisterPage() {
 
             </form>
         </div >
-    )
+    ) // return the html code
 } // checkinpage
-
-
-
-// return React.createElement('form', { onSubmit: handleSubmit },
-//     [React.createElement('h2', { key: 'heading-parent' }, t("ParentInfoHeader"))].concat(
-//         // ['firstName', 'lastName', 'phone', 'emergency'].map((field) =>
-//         [t("FirstNameTxt"), t("LastNameTxt"), t("PhoneTxt"), t("EmergencyContactTxt")].map((field) =>
-//             React.createElement('input', {
-//                 key: `parent-${field}`,
-//                 placeholder: field.charAt(0).toUpperCase() + field.slice(1) + (field !== 'emergency' ? ' *' : ''),
-//                 value: parent[field],
-//                 onChange: e => handleParentChange(field, e.target.value)
-//             })
-//         ),
-
-//         [React.createElement('h2', { key: 'heading-kids' }, t("KidInfoHeader"))],
-//         kids.map((kid, index) =>
-//             React.createElement('div', { key: `kid-${index}`, className: 'kidDiv' }, [
-//                 React.createElement('p', { key: `label-${index}` }, `${t("literarlyjustkid")} #${index + 1}`),
-//                 ...[t("FirstNameTxt"), t("LastNameTxt"), t("BirthDateTxt"), t("AllergiesTxt")].map(field =>
-//                     React.createElement('input', {
-//                         key: `kid-${index}-${field}`,
-//                         placeholder: field.charAt(0).toUpperCase() + field.slice(1) + (field !== 'allergies' ? ' *' : ''),
-//                         value: kid[field],
-//                         onChange: e => handleKidChange(index, field, e.target.value)
-//                     })
-//                 ),
-//                 index > 0 && /* adds a delete button for kid 2 and greater */
-//                 React.createElement('div', { className: 'delete-button-container', key: `delete-wrap-${index}` }, [
-//                     React.createElement('button', {
-//                         key: `delete-${index}`,
-//                         type: 'button',
-//                         onClick: () => {
-//                             const updatedKids = [...kids];
-//                             updatedKids.splice(index, 1);
-//                             setKids(updatedKids);
-//                         },
-//                         className: 'delete-button'
-//                     }, t("DeleteKidBtnTxt"))
-//                 ])
-//             ])
-//         ),
-
-//         [
-//             React.createElement('button', {
-//                 type: 'button',
-//                 key: 'add-kid',
-//                 onClick: addAnotherKid,
-//                 className: 'kidAddBtn',
-//             }, t("AddAnotherKidBtnTxt")),
-
-//             React.createElement(
-//                 'div',
-//                 {
-//                     key: `submit-button-container`,
-//                     className: 'submitButtonContainer'
-//                 },
-//                 [
-//                     React.createElement('button', {
-//                         type: 'submit',
-//                         key: 'submit',
-//                         className: 'submitButton'
-//                     }, t("SubmitbtnTxt"))
-//                 ]
-//             )
-//         ]
-//     )
-// ); // return
