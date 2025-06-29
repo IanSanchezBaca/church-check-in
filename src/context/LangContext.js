@@ -28,7 +28,7 @@ export const LangProvider = ({ children }) => {
         if (storedLang && storedLang !== currLang) {
             setCurrLang(storedLang);
         }
-    }, [currLang]);
+    }, []);
 
     useEffect(() => {
         localStorage.setItem('appLanguage', currLang);
