@@ -19,8 +19,6 @@ import { useTranslation } from '@/hooks/useTranslation';
 
 export default function SignInPage() {
     const {
-        // isAdmin,
-        // userData,
         day, month, year, hour, min, currDate,
         AttendanceDB,
         attendanceIsLoading,

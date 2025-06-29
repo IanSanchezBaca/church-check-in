@@ -28,13 +28,7 @@ export const LangProvider = ({ children }) => {
         if (storedLang && storedLang !== currLang) {
             setCurrLang(storedLang);
         }
-    }, []);
-
-    // useEffect(() => {
-    //     if (typeof window !== 'undefined') {
-    //         localStorage.setItem('appLanguage', currLang);
-    //     }
-    // }, [currLang]); // rerun if currLang changes
+    }, [currLang]);
 
     useEffect(() => {
         localStorage.setItem('appLanguage', currLang);

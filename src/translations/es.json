@@ -3,8 +3,8 @@
     "RegKidBtn": "Inscribir niño(s)",
     "SignInKidTxt": "Registrar asistencia del niño",
     "KidIdEx": "ID del niño (ejemplo: 00003)",
-    "ParentInfoHeader": "Información del padre",
-    "KidInfoHeader": "Información del niño(s)",
+    "ParentInfoHeader": "Información del Padre",
+    "KidInfoHeader": "Información del Niño(s)",
     "FirstNameTxt": "Nombre",
     "LastNameTxt": "Apellido",
     "PhoneTxt": "Número de teléfono",
@@ -20,6 +20,8 @@
     "idnotfoundalert": "no se encontró. Por favor regístrese primero y solicite el ID al personal.",
     "kidalreadysignedinalert": "{kid} ya está registrado para las clases de {period}.",
     "kidcheckedin": "{kidname} está registrado para la clase de {period}",
-    "emptyidalert": "Por favor, ingrese el ID de su niño para registrarlo."
-
+    "emptyidalert": "Por favor, ingrese el ID de su niño para registrarlo.",
+    "parentExistsError": "Este padre ya está en la base de datos.",
+    "kidExistsError": "Los niños ya existen en la base de datos. Por favor, regístrelos usando su ID.",
+    "regComplete": "¡Registro completado!"
 }

@@ -34,18 +34,14 @@
     /* gap: ; */
 }
 
-/* .NAVBAR {
-    background-color: black;
-    text-align: right;
-} */
-
 .LangSwitchBtn {
     background-color: #00f7ff;
     border: none;
     padding: .5rem 1rem;
     margin: .5rem;
-}
 
+
+}
 
 .auth-button {
     background-color: #00f7ff;
@@ -290,6 +286,69 @@
  * kid sign in END
 *********************************************/
 
+/********************************************
+ * kid Register
+*********************************************/
+
+.parentRegMainDiv {
+    padding: 8px;
+}
+
+.parentRegH2 {
+    /* text-align: center; */
+}
+
+.parentRegMainForm {
+    text-align: center;
+}
+
+.parentRegP {
+    margin: 0;
+}
+
+.birthdateInput:not(:last-child) {
+    margin-right: 10px;
+}
+
+.birthdateInput {
+    width: 55px;
+}
+
+.kidAddBtn {
+    margin-top: 1rem;
+    padding: 1rem 1rem;
+    background-color: #B4F2F1;
+}
+
+.submitButton {
+    background-color: #caffca;
+    padding: 1rem 5rem;
+    margin-top: 5px;
+}
+
+.delete-button {
+    margin-top: 3px;
+    background-color: crimson;
+    color: white;
+}
+
+.parentRegKidInfo {
+    border: 2px solid #000000;
+    /* border-bottom: 2px solid #000000; */
+    padding-bottom: 10px;
+}
+
+.parentRegKidInfo:not(:first-child) {
+    margin-top: 3px;
+}
+
+
+/********************************************
+ * kid Register END
+*********************************************/
+
+
+
 
 @media only screen and (max-width: 590px) {
 
@@ -310,14 +369,30 @@
     /********************************************
      * @media root
     *********************************************/
-    .auth-button {
-        /* margin-top: 0; */
-        /* margin-right: .5rem; */
+    .NAVBAR {
+        display: flex;
+        /* Makes the container a flex container */
+        justify-content: center;
+        /* Centers buttons horizontally (optional) */
+        align-items: center;
+        /* Aligns buttons vertically (optional) */
+        flex-wrap: nowrap;
+        /* Prevents items from wrapping onto the next line */
+        /* gap: 10px; */
+        /* Adds space between buttons (optional) */
     }
 
-    .reg-Button {
-        /* margin-left: .5rem; */
+    .LangSwitchBtn {
+        font-size: 15px;
+        width: 14rem;
     }
+
+
+    .auth-button {
+        /* This is log in/out button */
+    }
+
+    .reg-Button {}
 
     /********************************************
      * @media main log in css
@@ -421,8 +496,36 @@
         height: 5rem;
     }
 
+    /********************************************
+     * @media kid register
+    *********************************************/
+    .parentRegH2 {
+        font-size: 35px;
+    }
 
+    .kidInfoHeader {
+        margin-top: 1rem;
+    }
 
+    .parentRegP {
+        font-size: 25px;
+    }
+
+    .parentRegInput {
+        width: 100%;
+        /* height: 3rem; */
+    }
+
+    .birthdateInput {
+        width: 25%;
+    }
+
+    .submitButton {
+        margin-top: 3rem;
+        width: 100%;
+        height: 9rem;
+        font-size: 50px;
+    }
+
+    /* end of @media */
 }
-
-/* end of @media */

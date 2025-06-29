@@ -4,7 +4,7 @@
     "SignInKidTxt": "Sign In Kid",
     "KidIdEx": "Kid ID (example: 00003)",
     "ParentInfoHeader": "Parent Info",
-    "KidInfoHeader": "Kid Info",
+    "KidInfoHeader": "Kid(s) Info",
     "FirstNameTxt": "First Name",
     "LastNameTxt": "Last Name",
     "PhoneTxt": "Phone Number",
@@ -20,6 +20,9 @@
     "idnotfoundalert": "was not found. Please register first and ask staff for ID.",
     "kidalreadysignedinalert": "{kid} is already signed in for {period} classes.",
     "kidcheckedin": "{kidname} is checked in for {period} class.",
-    "emptyidalert": "Please type your kid's ID to sign them in."
+    "emptyidalert": "Please type your kid's ID to sign them in.",
+    "parentExistsError": "This parent already exists in the database.",
+    "kidExistsError": "The kids already exist in the database, please sign them in using their ID.",
+    "regComplete": "Registration complete!"
 
 }
