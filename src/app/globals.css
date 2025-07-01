@@ -347,6 +347,59 @@
  * kid Register END
 *********************************************/
 
+/********************************************
+ * kid Reports Page
+*********************************************/
+
+.ReportsPageMainDiv {
+    padding: 16px;
+}
+
+.ReportsPageButtonContainer {
+    padding-top: 1rem;
+    width: 100%;
+    text-align: center;
+}
+
+.ReportsPageInputsContainer {
+    width: 100%;
+    overflow: auto;
+}
+
+.ReportsPageMiddle {
+    text-align: center;
+}
+
+.ReportsPageLeft,
+.ReportsPageMiddle,
+.ReportsPageRight {
+    float: left;
+}
+
+.ReportsPageRight,
+.ReportsPageLeft {
+    width: 45%;
+}
+
+.ReportsPageMiddle {
+    width: 10%;
+}
+
+.ReportsPageInput {
+    width: 33.33%;
+}
+
+.ReportsH2 {
+    text-align: center;
+}
+
+.ReportsPageResults {
+    margin-top: 1rem;
+}
+
+/********************************************
+ * kid Reports Page END
+*********************************************/
 
 
 
