@@ -17,7 +17,7 @@ export default function ReportsPage() {
     if (!isAdmin) return (
         <div>
             <h1 style={{ textAlign: "center" }}>
-                Uh oh. You shouldn't be here.
+                Uh oh. You should not be here.
             </h1>
         </div>
     )
