@@ -64,7 +64,7 @@ export default function RegisterPage() {
 
     const handleSubmit = async (e) => {
         // comment this out after testing
-        // e.preventDefault(); // this makes it so that the page doesnt refresh and clear the inputs
+        e.preventDefault(); // this makes it so that the page doesnt refresh and clear the inputs
 
         /* cleaning up the data */
         const cleanedKids = kids.map(kid => ({
@@ -146,6 +146,7 @@ export default function RegisterPage() {
         }
         else {
             {/* it should only get in here if there is a completely new parent and kid(s) */ }
+
             try {
                 const kidsWithId = await Promise.all(
                     cleanedKids.map(async (kid) => ({
