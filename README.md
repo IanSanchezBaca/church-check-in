@@ -1,7 +1,7 @@
 ## to do list
-- [ ] fix the birthdate input for registration
+- [x] fix the birthdate input for registration
 
-- [ ] Now that the parents db is loaded we can finally check if the kid exists so that we dont create duplicates
+- [x] Now that the parents db is loaded we can finally check if the kid exists so that we dont create duplicates
 
 - [ ] make a checkbox to allow the password to be visible when typing password in login
 
