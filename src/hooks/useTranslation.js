@@ -28,12 +28,6 @@ export const useTranslation = () => {
     /* fallback if lang or tranlastions are not ready */
     const selectedTranslations = translations[currLang] || enTranslation;
 
-
-    /* function to get the translated string for a given key??? */
-    // const t = (key) => {
-    //     return translations[currLang][key] || key;
-    // }
-
     const t = (key) => {
         return selectedTranslations[key] || `[${key}]`;
     }

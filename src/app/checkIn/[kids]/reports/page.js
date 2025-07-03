@@ -2,18 +2,25 @@
  * This will be the reports page. 
  * Here you can get the attendance of the
 *********************************************/
+'use client';
+
+import React, { useContext } from 'react';
+import { EagleKidsPreloadContext } from '@/context/EagleKidsPreload';
+
+
 
 export default function ReportsPage() {
+    const {
+        isAdmin
+    } = useContext(EagleKidsPreloadContext);
 
-    // i need to include the use state
-    // const [month1, setMonth1] = useState("");
-
-
-
-    let test = true;
-
-
-
+    if (!isAdmin) return (
+        <div>
+            <h1 style={{ textAlign: "center" }}>
+                Uh oh. You shouldn't be here.
+            </h1>
+        </div>
+    )
 
     return (
         <div className="ReportsPageMainDiv">
@@ -68,14 +75,6 @@ export default function ReportsPage() {
                     </button>
                 </div>
             </form>
-
-            {test && (
-                <div className="ReportsPageResults">
-                    Hello world!
-                </div>
-            )}
-
-
 
         </div>
     ) // return html code

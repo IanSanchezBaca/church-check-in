@@ -9,6 +9,7 @@ import 'ldrs/react/Bouncy.css'
 import React, { useContext } from 'react';
 import Link from "next/link";
 import AdminButton from "@/app/lib/adminButton";
+import ReportsButton from '@/components/ReportsButton';
 
 import { EagleKidsPreloadContext } from '@/context/EagleKidsPreload';
 
@@ -49,13 +50,14 @@ export default function Chick() {
                     {t('KidsCheckInHeader')}
                 </h1>
             </div>
+
             <div className="row">
                 <Link href="/checkIn/kids/signin" className="box">
                     <div>
-                        <p>
-                            {t('SignInKidBtn')}
-                            {/* Sign In Kid(s) */}
-                        </p>
+                        {/* <p> */}
+                        {t('SignInKidBtn')}
+                        {/* Sign In Kid(s) */}
+                        {/* </p> */}
                     </div>
                 </Link>
                 <Link href="/checkIn/kids/reg" className="box">
@@ -65,7 +67,11 @@ export default function Chick() {
                     </div>
                 </Link>
             </div>
-            <div><AdminButton /></div>
+
+            <AdminButton />
+
+            <ReportsButton />
+
         </div >
 
     );

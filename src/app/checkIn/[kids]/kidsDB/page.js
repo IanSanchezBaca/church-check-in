@@ -99,14 +99,14 @@ export default function KidsDB() {
     if (!isAdmin) return null // should not be able to reach here but just in case
 
     /* cool little loading screen */
-    if (parentsDBIsLoading) return <div className='signinkidbouncydiv'>
+    if (parentsDBIsLoading) return (<div className='signinkidbouncydiv'>
         <Bouncy
             className="kidsigninBouncy"
             size="200"
             speed="1.75"
             color="black"
         />
-    </div>
+    </div>)
 
     return element('div', { className: 'KidsDBMainDiv' },
         [
