@@ -1,7 +1,4 @@
 ## to do list
-- [x] fix the birthdate input for registration
-
-- [x] Now that the parents db is loaded we can finally check if the kid exists so that we dont create duplicates
 
 - [ ] make a checkbox to allow the password to be visible when typing password in login
 
@@ -14,6 +11,10 @@
 
 
 <br/><br/><br/><br/><br/><br/><br/><br/>
+
+# RULES
+Remember to update all the rules if you ever create a new collection
+
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
