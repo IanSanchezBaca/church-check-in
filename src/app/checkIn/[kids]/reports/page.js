@@ -7,6 +7,8 @@
 import { EagleKidsPreloadContext } from '@/context/EagleKidsPreload';
 import React, { useEffect, useState, useContext } from 'react';
 import Image from 'next/image'
+import { doc, getDoc, getDocs, collection, query, where, FieldPath, documentId } from 'firebase/firestore';
+import { db } from '@/app/lib/firebase';
 
 
 
@@ -14,9 +16,8 @@ export default function ReportsPage() {
     // context
     const {
         day, month, year,
-        isAdmin
-
-
+        isAdmin,
+        parentsDB,
     } = useContext(EagleKidsPreloadContext);
 
     /* Left side */
@@ -28,14 +29,20 @@ export default function ReportsPage() {
     const [dayR, setDayR] = useState("");
     const [yearR, setYearR] = useState("");
 
+    const [attendanceDocs, setAttendanceDB] = useState(null);
 
-    useEffect(() => {
+    let newKidCount = 0;
+
+
+
+
+
+    useEffect(() => { // run this on startup
         setMonthL(month);
         setDayL(day);
         setYearL(year);
+        // use [] so that it doesnt run repeatedly
     }, [day, month, year]); //useEffect
-
-
 
     // check if the user is an admin
     if (!isAdmin) return (
@@ -45,6 +52,7 @@ export default function ReportsPage() {
             </h1>
             <div style={{ textAlign: "center" }}>
                 <Image
+                    unoptimized
                     src='/Rito1.gif'
                     alt='gif image lol'
                     height={100}
@@ -54,24 +62,78 @@ export default function ReportsPage() {
         </div>
     )
 
+    /* checks */
+    const checkLeft = () => {
+        return monthL && dayL && yearL;
+    }
+    const checkRight = () => {
+        return monthR && dayR && yearR;
+    }
 
+    const resetCount = () => {
+        newKidCount = 0;
+    };
 
+    const addCount = () => {
+        newKidCount++;
+    };
 
-
-
-    // const handleCheck = async (valye, num) => {}
 
 
     // this will be called when the search button is pressed
     const handleSearch = async () => {
+        if (checkLeft()) {
+            console.log("Left Side Filled.")
+            let monthYearL = monthL + "-" + yearL;
+            let monthYearR = "";
 
-        let test = monthL + "-" + yearL;
-        // console.log(`${monthL}-${dayL}-${yearL}`)
-        console.log(test);
+            if (!checkRight()) {
+                monthYearR = monthYearL;
+                // dayR = dayL;
+                setDayR(dayL);
+            }
+            else {
+                monthYearR = monthR + "-" + yearR;
+            }
 
-        if (!monthR && !dayR && !yearR) {
-            console.log("Right side is not filled.")
+            try {
+
+                console.log("reports page: Check if document exists.");
+                console.log(`from ${monthYearL} to ${monthYearR}`);
+
+                const q = query(
+                    collection(db, "attendance"),
+                    where(documentId(), ">=", monthYearL),
+                    where(documentId(), "<=", monthYearR),
+                );
+
+                const snapshot = await getDocs(q);
+
+                const results = [];
+                // snapshot.forEach(doc => results.push({ id: doc.id, ...doc.data() }));
+                snapshot.forEach(doc => {
+                    const filteredDays = Object.fromEntries(
+                        Object.entries(doc.data()).filter(([day]) => {
+                            const dayNum = parseInt(day, 10);
+                            return dayNum >= parseInt(dayL, 10) && dayNum <= parseInt(dayR, 10);
+                        })
+                    );
+                    results.push({ id: doc.id, ...filteredDays });
+                });
+
+                setAttendanceDB(results);
+
+            }
+            catch (e) {
+                setAttendanceDB(null);
+                console.error("Error: no data found?: ", e);
+            }
+
         }
+        else {
+            alert("Please type in a date.")
+        }
+
     }
 
     return (
@@ -79,15 +141,13 @@ export default function ReportsPage() {
             <h2 className="ReportsH2">
                 Date Range
             </h2>
-            {/* <form> */}
-            <div
-                className="ReportsPageInputsContainer"
-            >
+
+            <div className="ReportsPageInputsContainer">
+
 
                 <div className="ReportsPageLeft">
-                    <input // monthL
-                        // type='number'
-                        // pattern="[0-9]{2}"
+                    <div style={{ textAlign: "center" }}>Start Date</div>
+                    <input // monthL                        
                         className="ReportsPageInput"
                         placeholder="month"
                         value={monthL}
@@ -112,6 +172,7 @@ export default function ReportsPage() {
                 </div>
 
                 <div className="ReportsPageRight">
+                    <div style={{ textAlign: "center" }}>End Date</div>
                     <input // monthR
                         className="ReportsPageInput"
                         placeholder="month"
@@ -131,13 +192,8 @@ export default function ReportsPage() {
                         onChange={(e) => setYearR(e.target.value.trim())}
                     />
                 </div>
-            </div>
 
-            {/* <div className='ReportsPageButtonContainer'>
-                <button>
-                    clear
-                </button>
-            </div> */}
+            </div>
 
             <div className="ReportsPageButtonContainer">
                 <button
@@ -148,9 +204,79 @@ export default function ReportsPage() {
                 </button>
             </div>
 
-            {/* </form> */}
 
-        </div>
+            {attendanceDocs?.map((doc, index) => (
+                <div key={index} className='ReportsPageList kdbcard'>
+                    <h2>
+                        {doc.id}
+                    </h2>
+
+                    {Object.entries(doc).map(([day, kids]) => (
+                        day !== "id" && (
+                            <div key={day} className="attendanceDay kdbcard">
+                                <h4>
+                                    Day: {day}
+                                </h4>
+
+                                {resetCount()}
+
+                                {Object.entries(kids).map(([kidId, status]) => {
+                                    const kidEntry = parentsDB
+                                        .flatMap(parent => parent.kids?.map(kid => ({ ...kid, createdAt: parent.createdAt })) || [])
+                                        .find(k => k.id === kidId);
+
+                                    const kidName = kidEntry
+                                        ? `${kidEntry.firstName} ${kidEntry.lastName}`
+                                        : kidId;
+
+                                    const isNew = kidEntry?.createdAt
+                                        ? new Date(kidEntry.createdAt).getDate().toString().padStart(2, '0') === day
+                                        : false;
+
+                                    if (isNew) {
+                                        addCount();
+                                    }
+
+                                    return (
+                                        <div key={kidId} className="kdbcard">
+                                            <p className="kdbkidid">
+                                                {kidName} {isNew && <span color='green'>New</span>}
+                                            </p>
+                                            <p className="kdbkidstatus">
+                                                Morning: {status.morning ? "✅" : "❌"}
+                                            </p>
+                                            <p className="kdbkidstatus">
+                                                Afternoon: {status.afternoon ? "✅" : "❌"}
+                                            </p>
+                                        </div>
+                                    );
+                                })}
+
+                                {/* Daily Summary */}
+                                <div className="dailySummary">
+                                    <p>New Kids: {
+                                        newKidCount
+                                    }
+                                    </p>
+                                    <p>Morning: {
+                                        Object.values(kids).filter(k => k.morning).length
+                                    }</p>
+                                    <p>Afternoon: {
+                                        Object.values(kids).filter(k => k.afternoon).length
+                                    }</p>
+                                    <p>Total Kids Attended: {
+                                        Object.keys(kids).length
+                                    }</p>
+                                </div>
+
+                            </div>
+                        )
+                    ))}
+
+                </div>
+            ))}
+
+        </div >
     ) // return html code
 
 } // ReportsPage

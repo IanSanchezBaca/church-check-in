@@ -1,9 +1,9 @@
 ## to do list
-
 - [ ] make a checkbox to allow the password to be visible when typing password in login
 
 - [ ] Somehow make it so that it prints out reports.
     - will need to ask maria what exactly she wants
+    - add offerings
 
 
 
