@@ -415,7 +415,11 @@
  * kid Reports Page END
 *********************************************/
 
-
+@media print {
+    .printThis {
+        display: block !important;
+    }
+}
 
 @media only screen and (max-width: 590px) {
 

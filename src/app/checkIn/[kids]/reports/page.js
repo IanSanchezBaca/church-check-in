@@ -78,6 +78,10 @@ export default function ReportsPage() {
         newKidCount++;
     };
 
+    // This will be the function that will be called when print button is pressedd
+    const Print = async () => {
+
+    }
 
 
     // this will be called when the search button is pressed
@@ -138,9 +142,12 @@ export default function ReportsPage() {
 
     return (
         <div className="ReportsPageMainDiv">
-            <h2 className="ReportsH2">
-                Date Range
-            </h2>
+            <div>
+                <h2 className="ReportsH2">
+                    Date Range
+                </h2>
+                <button className='printButton'>Print</button>
+            </div>
 
             <div className="ReportsPageInputsContainer">
 
