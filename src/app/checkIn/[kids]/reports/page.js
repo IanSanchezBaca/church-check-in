@@ -247,7 +247,7 @@ export default function ReportsPage() {
                                     return (
                                         <div key={kidId} className="kdbcard">
                                             <p className="kdbkidid">
-                                                {kidName} {isNew && <span color='green'>New</span>}
+                                                {kidName} {isNew && <span style="color: green">🌟 New 🌟</span>}
                                             </p>
                                             <p className="kdbkidstatus">
                                                 Morning: {status.morning ? "✅" : "❌"}
