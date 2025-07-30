@@ -34,9 +34,6 @@ export default function ReportsPage() {
     let newKidCount = 0;
 
 
-
-
-
     useEffect(() => { // run this on startup
         setMonthL(month);
         setDayL(day);
