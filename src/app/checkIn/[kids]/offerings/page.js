@@ -16,13 +16,6 @@ export default function OfferingsPage() {
         isAdmin,
     } = useContext(EagleKidsPreloadContext);
 
-    // check if is admin
-    if (!isAdmin) {
-        return (
-            <div>Woops!</div>
-        )
-    }
-
     // the input vaiables
     const [MONTH, setMonth] = useState("");
     const [DAY, setDay] = useState("");
@@ -35,14 +28,6 @@ export default function OfferingsPage() {
 
 
     const [currOff, setCurrOff] = useState("-1");
-
-
-    // this function will get the offering from the current date
-    const getOffering = async () => {
-
-    } // getOffering
-
-
 
     useEffect(() => { // run this on startup
         // set the input dates
@@ -59,6 +44,16 @@ export default function OfferingsPage() {
 
         // use [] so that it doesnt run repeatedly
     }, [day, month, year]); //useEffect
+
+    // check if is admin
+    if (!isAdmin) {
+        return (
+            <div>Woops!</div>
+        )
+    }
+
+    // this function will get the offering from the current date
+    // const getOffering = async () => { } // getOffering
 
 
     return (
