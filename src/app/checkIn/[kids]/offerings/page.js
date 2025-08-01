@@ -27,7 +27,7 @@ export default function OfferingsPage() {
     const [currYear, setCurrYear] = useState("");
 
 
-    const [currOff, setCurrOff] = useState("-1");
+    const [currOff, setCurrOff] = useState("0");
 
     useEffect(() => { // run this on startup
         // set the input dates
@@ -39,6 +39,7 @@ export default function OfferingsPage() {
         setCurrDay(day);
         setCurrMonth(month);
         setCurrYear(year);
+
 
 
 
@@ -94,11 +95,12 @@ export default function OfferingsPage() {
                     </button>
                 </div>
             </div>
-            <footer style={{ textAlign: "center", marginTop: "10rem" }}>
+
+            {/* <footer style={{ textAlign: "center", marginTop: "10rem" }}>
                 <p>
                     * If offerings is -1, this means that there is no offerings for that day.
                 </p>
-            </footer>
+            </footer> */}
         </div>
     ); // return
 

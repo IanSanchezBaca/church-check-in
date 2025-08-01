@@ -31,6 +31,8 @@ export default function ReportsPage() {
 
     const [attendanceDocs, setAttendanceDB] = useState(null);
 
+    const [showResults, setShowResults] = useState(false);
+
     let newKidCount = 0;
 
 
@@ -83,15 +85,19 @@ export default function ReportsPage() {
 
     // this will be called when the search button is pressed
     const handleSearch = async () => {
+        setAttendanceDB(null); // reset the lists
+        setShowResults(false);
+
         if (checkLeft()) {
             console.log("Left Side Filled.")
             let monthYearL = monthL + "-" + yearL;
             let monthYearR = "";
-
+            let tempDayR = dayR;
             if (!checkRight()) {
                 monthYearR = monthYearL;
                 // dayR = dayL;
-                setDayR(dayL);
+                // setDayR(dayL);
+                tempDayR = dayL
             }
             else {
                 monthYearR = monthR + "-" + yearR;
@@ -116,13 +122,14 @@ export default function ReportsPage() {
                     const filteredDays = Object.fromEntries(
                         Object.entries(doc.data()).filter(([day]) => {
                             const dayNum = parseInt(day, 10);
-                            return dayNum >= parseInt(dayL, 10) && dayNum <= parseInt(dayR, 10);
+                            return dayNum >= parseInt(dayL, 10) && dayNum <= parseInt(tempDayR, 10);
                         })
                     );
                     results.push({ id: doc.id, ...filteredDays });
                 });
 
                 setAttendanceDB(results);
+                setShowResults(true);
 
             }
             catch (e) {
@@ -209,7 +216,7 @@ export default function ReportsPage() {
             </div>
 
 
-            {attendanceDocs?.map((doc, index) => (
+            {showResults && attendanceDocs?.map((doc, index) => (
                 <div key={index} className='ReportsPageList kdbcard'>
                     <h2>
                         {doc.id}
