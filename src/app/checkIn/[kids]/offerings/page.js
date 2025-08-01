@@ -29,6 +29,11 @@ export default function OfferingsPage() {
 
     const [currOff, setCurrOff] = useState("0");
 
+    const handleSearch = async () => {
+        console.log("OfferingsPage: This setup works?")
+    }
+
+
     useEffect(() => { // run this on startup
         // set the input dates
         setMonth(month);
@@ -41,7 +46,7 @@ export default function OfferingsPage() {
         setCurrYear(year);
 
 
-
+        handleSearch();
 
         // use [] so that it doesnt run repeatedly
     }, [day, month, year]); //useEffect
@@ -49,9 +54,12 @@ export default function OfferingsPage() {
     // check if is admin
     if (!isAdmin) {
         return (
-            <div>Woops!</div>
+            <div style={{ textAlign: "center" }}>
+                <h1>404 Not found. lol</h1>
+            </div>
         )
     }
+
 
     // this function will get the offering from the current date
     // const getOffering = async () => { } // getOffering

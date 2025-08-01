@@ -95,8 +95,6 @@ export default function ReportsPage() {
             let tempDayR = dayR;
             if (!checkRight()) {
                 monthYearR = monthYearL;
-                // dayR = dayL;
-                // setDayR(dayL);
                 tempDayR = dayL
             }
             else {
@@ -221,7 +219,6 @@ export default function ReportsPage() {
                     <h2>
                         {doc.id}
                     </h2>
-
                     {Object.entries(doc).map(([day, kids]) => (
                         day !== "id" && (
                             <div key={day} className="attendanceDay kdbcard">
@@ -286,8 +283,7 @@ export default function ReportsPage() {
 
                 </div>
             ))}
-
-        </div >
+        </div>
     ) // return html code
 
 } // ReportsPage
