@@ -23,6 +23,7 @@
     "emptyidalert": "Please type your kid's ID to sign them in.",
     "parentExistsError": "This parent already exists in the database.",
     "kidExistsError": "The kids already exist in the database, please sign them in using their ID.",
-    "regComplete": "Registration complete!"
+    "regComplete": "Registration complete!",
+    "signInHelp": "If you do not have or know your ID please ask staff for help."
 
 }

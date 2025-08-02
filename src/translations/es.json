@@ -23,5 +23,6 @@
     "emptyidalert": "Por favor, ingrese el ID de su niño para registrarlo.",
     "parentExistsError": "Este padre ya está en la base de datos.",
     "kidExistsError": "Los niños ya existen en la base de datos. Por favor, regístrelos usando su ID.",
-    "regComplete": "¡Registro completado!"
+    "regComplete": "¡Registro completado!",
+    "signInHelp": "Si no tienes o no conoces tu ID, por favor pide ayuda al personal."
 }

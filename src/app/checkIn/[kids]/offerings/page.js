@@ -14,6 +14,7 @@ export default function OfferingsPage() {
     const {
         day, month, year,
         isAdmin,
+        AttendanceDB, // really only used for the current day's offerings
     } = useContext(EagleKidsPreloadContext);
 
     // the input vaiables
@@ -27,10 +28,20 @@ export default function OfferingsPage() {
     const [currYear, setCurrYear] = useState("");
 
 
-    const [currOff, setCurrOff] = useState("0");
+    const [currOff, setCurrOff] = useState(0);
+
 
     const handleSearch = async () => {
-        console.log("OfferingsPage: This setup works?")
+        // will search for a specific day's offerings
+        console.log(`Looking for ${MONTH}-${DAY}-${YEAR}`)
+        let monthYear = MONTH + "-" + YEAR;
+
+        console.log(monthYear)
+
+    }
+
+    const handleUpdate = async () => {
+        // will update a specific day's offerings
     }
 
 
@@ -45,11 +56,17 @@ export default function OfferingsPage() {
         setCurrMonth(month);
         setCurrYear(year);
 
-
-        handleSearch();
+        // this will only really run once and only for the first start up
+        if (AttendanceDB && Object.keys(AttendanceDB).length > 0) {
+            if (AttendanceDB.Offerings) {
+                setCurrOff(AttendanceDB.Offerings)
+            }
+        } else {
+            console.log("OfferingsPage: There is nothing inside of attendanceDB")
+        }
 
         // use [] so that it doesnt run repeatedly
-    }, [day, month, year]); //useEffect
+    }, [day, month, year, AttendanceDB]); //useEffect
 
     // check if is admin
     if (!isAdmin) {
@@ -89,13 +106,21 @@ export default function OfferingsPage() {
             </div>
 
             <div style={{ textAlign: "center", marginTop: ".5rem" }}>
-                <button>search</button>
+                <button
+                    onClick={handleSearch}
+                >
+                    Search
+                </button>
             </div>
 
             <div style={{ textAlign: "center", marginTop: "3rem" }}>
-                <h2>Offerings on {currMonth}/{currDay}/{currYear}: {currOff} </h2>
+                <h2>
+                    Offerings on {currMonth}/{currDay}/{currYear}: ${currOff}
+                </h2>
                 <input
-                    placeholder="1.00"
+                    placeholder="1.99"
+                    type="number"
+                    step={"0.01"}
                 />
                 <div style={{ textAlign: "center", marginTop: ".5rem" }}>
                     <button>
@@ -104,11 +129,7 @@ export default function OfferingsPage() {
                 </div>
             </div>
 
-            {/* <footer style={{ textAlign: "center", marginTop: "10rem" }}>
-                <p>
-                    * If offerings is -1, this means that there is no offerings for that day.
-                </p>
-            </footer> */}
+
         </div>
     ); // return
 

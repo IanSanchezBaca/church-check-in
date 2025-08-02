@@ -249,6 +249,11 @@ export default function SignInPage() {
 
             ), // div wrapper
 
+            element('div', { key: "HelperDIV", style: { textAlign: "center", marginTop: "3rem" } },
+                element('h2', { key: "HelperP" },
+                    t('signInHelp')
+                )
+            ),
         ]
     ); // return main element
 

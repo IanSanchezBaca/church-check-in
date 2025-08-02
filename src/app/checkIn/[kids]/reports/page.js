@@ -152,8 +152,6 @@ export default function ReportsPage() {
             </div>
 
             <div className="ReportsPageInputsContainer">
-
-
                 <div className="ReportsPageLeft">
                     <div style={{ textAlign: "center" }}>Start Date</div>
                     <input // monthL                        
@@ -228,7 +226,7 @@ export default function ReportsPage() {
 
                                 {resetCount()}
 
-                                {Object.entries(kids).map(([kidId, status]) => {
+                                {Object.entries(kids).filter(([key]) => key !== "Offerings").map(([kidId, status]) => {
                                     const kidEntry = parentsDB
                                         .flatMap(parent => parent.kids?.map(kid => ({ ...kid, createdAt: parent.createdAt })) || [])
                                         .find(k => k.id === kidId);
@@ -275,6 +273,7 @@ export default function ReportsPage() {
                                     <p>Total Kids Attended: {
                                         Object.keys(kids).length
                                     }</p>
+                                    <p>Offerings: ${kids.Offerings ?? 0}</p>
                                 </div>
 
                             </div>
