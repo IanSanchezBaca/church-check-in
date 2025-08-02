@@ -6,7 +6,9 @@
 *********************************************/
 'use client';
 
+import { db } from '@/app/lib/firebase';
 import { EagleKidsPreloadContext } from '@/context/EagleKidsPreload';
+import { getDoc, doc, setDoc } from 'firebase/firestore';
 import React, { useEffect, useState, useContext } from 'react';
 
 export default function OfferingsPage() {
@@ -27,21 +29,93 @@ export default function OfferingsPage() {
     const [currDay, setCurrDay] = useState("");
     const [currYear, setCurrYear] = useState("");
 
-
+    const [inputOff, setInputOff] = useState(0);
     const [currOff, setCurrOff] = useState(0);
 
 
-    const handleSearch = async () => {
-        // will search for a specific day's offerings
-        console.log(`Looking for ${MONTH}-${DAY}-${YEAR}`)
-        let monthYear = MONTH + "-" + YEAR;
+    const checkChange = () => {
+        return MONTH === currMonth && DAY === currDay && YEAR === currYear;
+    }
 
-        console.log(monthYear)
+
+    const handleSearch = async () => {// will search for a specific day's offerings
+        if (checkChange()) { // check if date was changed before searching
+            console.log("Nothing was updated.")
+            return;
+        }
+
+        const monthYear = MONTH + "-" + YEAR;
+        // console.log(monthYear);
+
+        const attendanceDocRef = doc(db, "attendance", monthYear);
+
+        try {
+            const docSnap = await getDoc(attendanceDocRef);
+
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+
+                const offVal = data?.[DAY]?.Offerings ?? 0;
+                // console.log(offVal);
+                setCurrOff(offVal);
+            } else {
+                setCurrOff(0);
+            }
+
+        } catch (error) {
+            console.error("KidsOfferingsPage: error fetching offerings: ", error);
+            setCurrOff(0);
+        }
+
+        setCurrDay(DAY);
+        setCurrMonth(MONTH);
+        setCurrYear(YEAR);
+
 
     }
 
-    const handleUpdate = async () => {
-        // will update a specific day's offerings
+    const handleUpdate = async () => { // will update a specific day's offerings
+        let monthYear = MONTH + "-" + YEAR;
+
+        const attendanceDocRef = doc(db, "attendance", monthYear);
+
+        try {
+            const docSnap = await getDoc(attendanceDocRef);
+
+            let updatedData = {};
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+
+                // make sure teh current day field exists
+                if (!data[DAY]) {
+                    data[DAY] = {};
+                }
+
+                // if offerings doesnt exist, set it to zero
+                if (data[DAY].Offerings === undefined) {
+                    data[DAY].Offerings = 0;
+                }
+
+                data[DAY].Offerings = parseFloat(inputOff) || 0;
+
+                updatedData = { [DAY]: data[DAY] };
+
+            } else {
+                updatedData = {
+                    [DAY]: {
+                        Offerings: parseFloat(inputOff) || 0
+                    }
+                };
+            }
+
+            await setDoc(attendanceDocRef, updatedData, { merge: true });
+            setCurrOff(inputOff);
+            // alert("Offering Updated!");
+
+        } catch (error) {
+            console.error("KidsOfferingsPage: Failed to update offerings: ", error);
+        }
+
     }
 
 
@@ -121,9 +195,12 @@ export default function OfferingsPage() {
                     placeholder="1.99"
                     type="number"
                     step={"0.01"}
+                    onChange={(e) => setInputOff(e.target.value.trim())}
                 />
                 <div style={{ textAlign: "center", marginTop: ".5rem" }}>
-                    <button>
+                    <button
+                        onClick={handleUpdate}
+                    >
                         Update Value
                     </button>
                 </div>
