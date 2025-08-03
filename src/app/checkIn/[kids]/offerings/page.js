@@ -54,7 +54,6 @@ export default function OfferingsPage() {
 
             if (docSnap.exists()) {
                 const data = docSnap.data();
-
                 const offVal = data?.[DAY]?.Offerings ?? 0;
                 // console.log(offVal);
                 setCurrOff(offVal);

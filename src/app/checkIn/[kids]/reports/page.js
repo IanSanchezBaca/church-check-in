@@ -9,6 +9,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import Image from 'next/image'
 import { doc, getDoc, getDocs, collection, query, where, FieldPath, documentId } from 'firebase/firestore';
 import { db } from '@/app/lib/firebase';
+import { useRouter } from 'next/navigation';
+
 
 
 
@@ -19,6 +21,8 @@ export default function ReportsPage() {
         isAdmin,
         parentsDB,
     } = useContext(EagleKidsPreloadContext);
+
+    const router = useRouter();
 
     /* Left side */
     const [monthL, setMonthL] = useState("");
@@ -60,6 +64,11 @@ export default function ReportsPage() {
             </div>
         </div>
     )
+
+
+    const goToOfferingsPage = () => {
+        router.push('./offerings')
+    }
 
     /* checks */
     const checkLeft = () => {
@@ -145,10 +154,21 @@ export default function ReportsPage() {
     return (
         <div className="ReportsPageMainDiv">
             <div>
+                <button
+                    onClick={goToOfferingsPage}
+                >
+                    Offerings
+                </button>
+
+                {/* <button>
+                    Print
+                </button> */}
+
+            </div>
+            <div>
                 <h2 className="ReportsH2">
                     Date Range
                 </h2>
-                {/* <button className='printButton'>Print</button> */}
             </div>
 
             <div className="ReportsPageInputsContainer">
@@ -271,7 +291,7 @@ export default function ReportsPage() {
                                         Object.values(kids).filter(k => k.afternoon).length
                                     }</p>
                                     <p>Total Kids Attended: {
-                                        Object.keys(kids).length
+                                        Object.keys(kids).length - 1
                                     }</p>
                                     <p>Offerings: ${kids.Offerings ?? 0}</p>
                                 </div>
