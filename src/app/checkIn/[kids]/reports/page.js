@@ -7,7 +7,7 @@
 import { EagleKidsPreloadContext } from '@/context/EagleKidsPreload';
 import React, { useEffect, useState, useContext } from 'react';
 import Image from 'next/image'
-import { doc, getDoc, getDocs, collection, query, where, FieldPath, documentId } from 'firebase/firestore';
+import { getDocs, collection, query, where, documentId, updateDoc, doc } from 'firebase/firestore';
 import { db } from '@/app/lib/firebase';
 import { useRouter } from 'next/navigation';
 
@@ -150,6 +150,8 @@ export default function ReportsPage() {
         }
 
     }
+
+
 
     return (
         <div className="ReportsPageMainDiv">
