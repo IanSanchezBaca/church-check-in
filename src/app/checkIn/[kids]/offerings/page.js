@@ -31,6 +31,7 @@ export default function OfferingsPage() {
 
     const [inputOff, setInputOff] = useState(0);
     const [currOff, setCurrOff] = useState(0);
+    const [start, setStart] = useState(true);
 
 
     const checkChange = () => {
@@ -39,7 +40,7 @@ export default function OfferingsPage() {
 
 
     const handleSearch = async () => {// will search for a specific day's offerings
-        if (checkChange()) { // check if date was changed before searching
+        if (checkChange() && !start) { // check if date was changed before searching
             console.log("Nothing was updated.")
             return;
         }
@@ -129,14 +130,17 @@ export default function OfferingsPage() {
         setCurrMonth(month);
         setCurrYear(year);
 
-        // this will only really run once and only for the first start up
-        if (AttendanceDB && Object.keys(AttendanceDB).length > 0) {
-            if (AttendanceDB.Offerings) {
-                setCurrOff(AttendanceDB.Offerings)
-            }
-        } else {
-            console.log("OfferingsPage: There is nothing inside of attendanceDB")
-        }
+        // // this will only really run once and only for the first start up
+        // if (AttendanceDB && Object.keys(AttendanceDB).length > 0) {
+        //     if (AttendanceDB.Offerings) {
+        //         setCurrOff(AttendanceDB.Offerings)
+        //     }
+        // } else {
+        //     console.log("OfferingsPage: There is nothing inside of attendanceDB")
+        // }
+
+        handleSearch();
+        setStart(false);
 
         // use [] so that it doesnt run repeatedly
     }, [day, month, year, AttendanceDB]); //useEffect
