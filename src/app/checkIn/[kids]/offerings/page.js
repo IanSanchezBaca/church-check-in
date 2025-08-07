@@ -143,7 +143,7 @@ export default function OfferingsPage() {
         setStart(false);
 
         // use [] so that it doesnt run repeatedly
-    }, [day, month, year, AttendanceDB]); //useEffect
+    }, [day, month, year]); //useEffect
 
     // check if is admin
     if (!isAdmin) {
